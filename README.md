@@ -1,54 +1,191 @@
-# UPS Tracking Page - Angular 20+ with Figma MCP Integration
+# Figma UX to UI Code Generator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+**AI-powered pipeline that transforms Figma designs into production-ready Angular components**
 
-A pixel-perfect implementation of the UPS tracking page design from Figma, built with Angular 20+ and standalone components.
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)
+[![Node](https://img.shields.io/badge/Node.js-18+-green)](https://nodejs.org/)
+[![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)
 
-## 🎨 NEW: Figma MCP Server Integration
+## Overview
 
-This project now includes a complete Figma MCP (Model Context Protocol) server that enables:
-- ✅ Direct Figma design fetching via API
-- ✅ VS Code Copilot integration with Figma tools
-- ✅ Automated LLM processing for design-to-code workflows
-- ✅ Raw JSON exports for custom automation
+This repository contains a complete code generation pipeline that:
+1. **Fetches** Figma designs via API
+2. **Generates** Angular components using IBM Granite LLM
+3. **Validates** strict UPS brand CSS compliance
+4. **Previews** components with interactive approval
+5. **Automates** Git branching and routing
 
-### Quick Start with Figma
-```powershell
-# Interactive launcher
-.\start-figma.ps1
+Built for **UPS** to accelerate frontend development from Figma designs.
 
-# Or start MCP server directly
-npm run mcp-server
+---
 
-# Fetch designs
-npm run figma:fetch <fileKey> <nodeId>
+## 🚀 Quick Start
 
-# Automate with LLM
-npm run figma:automate <fileKey> <nodeId> -- --llm=openai
+### Prerequisites
+- Node.js 18+
+- Figma Personal Access Token ([Get one here](https://www.figma.com/developers/api#access-tokens))
+- IBM Granite API Key
+
+### Installation
+
+```bash
+# 1. Clone repository
+git clone https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR.git
+cd FIGMA-UX-TO-UI-CODE-GENERATOR
+
+# 2. Install pipeline dependencies
+npm install
+
+# 3. Install Angular app dependencies
+cd generated-app
+npm install
+cd ..
+
+# 4. Configure environment
+cp .env.example .env
+# Edit .env with your tokens
 ```
 
-📖 **See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for commands**  
-📚 **See [COMPLETE_GUIDE.md](COMPLETE_GUIDE.md) for full documentation**
+### Generate Your First Component
 
-## Features
+```bash
+# Run the generator
+npm run generate
 
-- **Modern Angular 20+**: Uses the latest Angular features with standalone components
-- **Pixel-Perfect Design**: Matches the original Figma design exactly
-- **UPS Brand Colors**: Implements official UPS color palette
-- **Responsive**: Mobile-friendly responsive design
-- **TypeScript**: Fully typed with strict TypeScript configuration
-- **SCSS Styling**: Organized component-based styles with CSS custom properties
+# Follow the prompts:
+# - Enter Figma file key
+# - Enter node ID
+# - Preview opens automatically
+# - Type 'A' to approve
+# - Component moves to generated-app/src/app/components/
+# - Git branch created automatically
+```
 
-## Project Structure
+---
+
+## 📂 Repository Structure
 
 ```
-src/
-├── app/
-│   ├── components/
-│   │   ├── cursor/                    # Animated cursor component
-│   │   ├── track-dyn-text/           # Dynamic "Track" text animation
-│   │   └── tracking-page/            # Main page component
-│   ├── app.component.ts              # Root component
+FIGMA-UX-TO-UI-CODE-GENERATOR/
+│
+├── pipeline/              🔧 Code generation tooling
+│   ├── generate-with-preview.mjs  (main generator)
+│   ├── figma-mcp-server.mjs       (Figma MCP server)
+│   ├── servers/                   (test servers)
+│   └── .preview/                  (temp previews)
+│
+├── generated-app/         🎨 Angular application
+│   ├── src/app/components/        (generated components)
+│   ├── src/app/app.routes.ts     (auto-updated)
+│   └── src/styles.scss           (UPS Brand CSS)
+│
+├── docs/                  📚 Documentation
+│   ├── setup/            (installation guides)
+│   ├── guides/           (workflows & best practices)
+│   ├── reports/          (POC summaries)
+│   └── technical/        (technical deep dives)
+│
+├── .env                   🔐 Environment variables
+└── package.json          📦 Pipeline dependencies
+```
+
+---
+
+## 🎯 Features
+
+### AI Code Generation
+- **IBM Granite LLM** integration for intelligent code generation
+- **Strict CSS validation** - Only approved UPS brand classes allowed
+- **Angular 20+ syntax** - Modern standalone components
+- **TypeScript-first** - Fully typed components
+
+### Developer Experience
+- **Interactive preview** - See components before committing
+- **Automatic routing** - app.routes.ts updated automatically
+- **Git automation** - Feature branches created (`feat/figma-*`)
+- **VSCode integration** - Preview opens automatically
+
+### Quality Assurance
+- **53 approved CSS classes** from UPS brand guidelines
+- **93% CSS compliance** achieved in testing
+- **No Tailwind** - Prevents training bias issues
+- **Inline styles** for gradients/opacity when needed
+
+---
+
+## 📖 Documentation
+
+| Guide | Description |
+|-------|-------------|
+| [Quick Start](docs/setup/QUICK_START.md) | Get up and running in 5 minutes |
+| [Developer Guide](docs/guides/DEVELOPER_GUIDE.md) | Complete workflow for developers |
+| [Branch Workflow](docs/guides/BRANCH_WORKFLOW_GUIDE.md) | Visual guide to Git automation |
+| [Complete Guide](docs/guides/COMPLETE_GUIDE.md) | Comprehensive documentation |
+| [Migration Summary](MIGRATION_SUMMARY.md) | Repository reorganization details |
+
+---
+
+## 🔧 Commands
+
+### Pipeline Commands (Root)
+```bash
+npm run generate         # Run code generator (main workflow)
+npm run mcp-server       # Start Figma MCP server  
+npm run figma:fetch      # Fetch Figma JSON
+npm run figma:automate   # Run automation pipeline
+```
+
+### Angular App Commands (generated-app/)
+```bash
+cd generated-app
+npm start               # Run dev server (localhost:4200)
+npm build               # Build for production
+npm test                # Run tests
+```
+
+---
+
+## 🎨 Generated Components
+
+Example components already generated:
+- **track-page** - Main tracking interface
+- **demo-component** - Feature showcase
+- **quote-ship-page** - Shipping quote form
+
+All components feature:
+- ✅ UPS brand CSS compliance
+- ✅ Responsive design
+- ✅ TypeScript types
+- ✅ Standalone architecture
+
+---
+
+## 🤝 Contributing
+
+This is an internal UPS project. For questions or issues:
+
+1. Check documentation in `docs/`
+2. Review `MIGRATION_SUMMARY.md` for recent changes
+3. Contact the development team
+
+---
+
+## 📄 License
+
+**Proprietary** - Internal UPS tool
+
+---
+
+## 🔗 Links
+
+- **Repository**: https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR
+- **Figma API**: https://www.figma.com/developers/api
+- **IBM Granite**: https://www.ibm.com/products/watsonx-ai
+- **Angular**: https://angular.io
+
+---
+
+**Built with** ❤️ **by UPS Development Team**
 │   └── app.routes.ts                 # Route configuration
 ├── assets/                           # Images and icons
 ├── styles.scss                       # Global styles and UPS design tokens
