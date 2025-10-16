@@ -13,6 +13,9 @@
  * 7. On approval: Move to final location + Git commit
  */
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 import fetch from 'node-fetch';
 import https from 'https';
 import fs from 'fs/promises';
@@ -400,6 +403,94 @@ function parseGeneratedCode(generatedCode) {
 }
 
 // ============================================================================
+// STEP 6.5: Extract Properties from HTML and Fix TypeScript
+// ============================================================================
+function fixTypeScriptLogic(typescript, html) {
+  log('🔧 Step 6.5: Analyzing HTML for missing TypeScript properties...', 'blue');
+  
+  // Extract property references from HTML
+  const propertyPatterns = [
+    // Property bindings: [property]="value" or [style]="value"
+    /\[([a-zA-Z_$][a-zA-Z0-9_$]*)\]="([^"]+)"/g,
+    // Event bindings with property assignments: (click)="prop = value"
+    /\(click\)="([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=/g,
+    // *ngIf with properties: *ngIf="property"
+    /\*ngIf="([a-zA-Z_$][a-zA-Z0-9_$]*)/g,
+    // Interpolation: {{ property }}
+    /\{\{\s*([a-zA-Z_$][a-zA-Z0-9_$]*)/g,
+  ];
+
+  const referencedProperties = new Set();
+  
+  // Find all property references
+  propertyPatterns.forEach(pattern => {
+    const matches = html.matchAll(pattern);
+    for (const match of matches) {
+      const prop = match[1];
+      // Skip common Angular directives and known properties
+      if (!['style', 'class', 'src', 'ngIf', 'ngFor', 'ngClass', 'ngStyle'].includes(prop)) {
+        referencedProperties.add(prop);
+      }
+    }
+  });
+
+  // Also check for properties in event handlers: (click)="showDetails = !showDetails"
+  const togglePattern = /\(click\)="([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*!([a-zA-Z_$][a-zA-Z0-9_$]*)"/g;
+  const toggleMatches = html.matchAll(togglePattern);
+  for (const match of toggleMatches) {
+    referencedProperties.add(match[1]);
+    referencedProperties.add(match[2]);
+  }
+
+  // Check which properties are already in TypeScript
+  const existingProperties = new Set();
+  const propertyRegex = /^\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*[:=]/gm;
+  const propMatches = typescript.matchAll(propertyRegex);
+  for (const match of propMatches) {
+    existingProperties.add(match[1]);
+  }
+
+  // Find missing properties
+  const missingProperties = Array.from(referencedProperties).filter(
+    prop => !existingProperties.has(prop) && prop !== 'constructor'
+  );
+
+  if (missingProperties.length === 0) {
+    log('✓ All properties already defined in TypeScript', 'green');
+    return typescript;
+  }
+
+  log(`⚠️  Found ${missingProperties.length} missing properties: ${missingProperties.join(', ')}`, 'yellow');
+
+  // Inject missing properties into TypeScript class
+  // Find the class body and add properties after the class declaration
+  const classBodyRegex = /export class \w+Component \{/;
+  const match = typescript.match(classBodyRegex);
+  
+  if (!match) {
+    log('⚠️  Could not find class declaration, skipping property injection', 'yellow');
+    return typescript;
+  }
+
+  // Generate property declarations (assume boolean for toggles, string for others)
+  const propertyDeclarations = missingProperties.map(prop => {
+    // Check if it's used as a boolean toggle
+    const isBooleanToggle = html.includes(`${prop} = !${prop}`) || html.includes(`*ngIf="${prop}"`);
+    return `  ${prop}${isBooleanToggle ? ': boolean' : ''} = ${isBooleanToggle ? 'false' : "''"};\n`;
+  }).join('');
+
+  // Insert properties right after the opening brace of the class
+  const insertionPoint = match.index + match[0].length;
+  const fixedTypeScript = 
+    typescript.slice(0, insertionPoint) +
+    '\n' + propertyDeclarations +
+    typescript.slice(insertionPoint);
+
+  log(`✅ Added ${missingProperties.length} missing properties to TypeScript`, 'green');
+  return fixedTypeScript;
+}
+
+// ============================================================================
 // STEP 7: STRICT CSS Validation
 // ============================================================================
 function validateCSSStrict(htmlContent, approvedClasses) {
@@ -516,6 +607,289 @@ async function openInVSCode(filePaths) {
 }
 
 // ============================================================================
+// STEP 10.5: Browser Preview System (SIMPLIFIED)
+// ============================================================================
+let devServerProcess = null;
+let tempComponentPath = null;
+
+async function setupBrowserPreview(componentName, previewPaths) {
+  log('🌐 Step 10.5: Setting up browser preview...', 'blue');
+  
+  try {
+    // 1. Copy component to generated-app (always do this)
+    tempComponentPath = path.join(config.componentDir, componentName);
+    await fs.mkdir(tempComponentPath, { recursive: true });
+    
+    await fs.copyFile(previewPaths.ts, path.join(tempComponentPath, `${componentName}.component.ts`));
+    await fs.copyFile(previewPaths.html, path.join(tempComponentPath, `${componentName}.component.html`));
+    await fs.copyFile(previewPaths.scss, path.join(tempComponentPath, `${componentName}.component.scss`));
+    
+    log(`✓ Component copied to generated-app`, 'green');
+    
+    // 2. Update routes
+    await updateRoutes(componentName, 'add-temp');
+    log(`✓ Routes updated`, 'green');
+    
+    // 3. Check if server is already running
+    const serverRunning = await checkServerRunning();
+    
+    if (!serverRunning) {
+      log('🚀 Starting Angular dev server...', 'yellow');
+      log('   This will take 30-60 seconds...', 'yellow');
+      
+      // Start server in a NEW terminal window (user can see it)
+      const isWindows = process.platform === 'win32';
+      if (isWindows) {
+        // Open new PowerShell window with ng serve
+        await execAsync(`start powershell -NoExit -Command "cd '${path.join(__dirname, '..', 'generated-app')}'; npm start"`);
+      } else {
+        // Mac/Linux
+        await execAsync(`osascript -e 'tell app "Terminal" to do script "cd ${path.join(__dirname, '..', 'generated-app')} && npm start"'`);
+      }
+      
+      // Wait for server to be ready
+      log('⏳ Waiting for server to start...', 'yellow');
+      await waitForServer('http://localhost:4200', 120000);
+      log('✓ Server is ready!', 'green');
+    } else {
+      log('✓ Server already running', 'green');
+    }
+    
+    // 4. Open browser
+    const url = `http://localhost:4200/${componentName}`;
+    log(`🌐 Opening browser: ${url}`, 'cyan');
+    
+    const isWindows = process.platform === 'win32';
+    const openCmd = isWindows ? 'start' : (process.platform === 'darwin' ? 'open' : 'xdg-open');
+    
+    await execAsync(`${openCmd} ${url}`);
+    
+    log('✓ Browser opened!', 'green');
+    log('📝 Review the component visually before accepting', 'cyan');
+    
+    return true;
+    
+  } catch (error) {
+    log(`⚠️  Browser preview failed: ${error.message}`, 'yellow');
+    log('   You can manually run: cd generated-app && npm start', 'yellow');
+    return false;
+  }
+}
+
+// Helper: Check if server is running
+async function checkServerRunning() {
+  try {
+    const response = await fetch('http://localhost:4200', {
+      method: 'HEAD',
+      signal: AbortSignal.timeout(2000)
+    });
+    return response.ok || response.status === 404; // 404 is ok, means server is running
+  } catch {
+    return false;
+  }
+}
+
+// Helper: Wait for server to be ready
+async function waitForServer(url, timeout = 120000) {
+  const startTime = Date.now();
+  
+  while (Date.now() - startTime < timeout) {
+    try {
+      const response = await fetch(url, {
+        method: 'HEAD',
+        signal: AbortSignal.timeout(2000)
+      });
+      if (response.ok || response.status === 404) {
+        return true;
+      }
+    } catch {
+      // Server not ready yet
+    }
+    
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Check every 2 seconds
+  }
+  
+  throw new Error('Server startup timeout');
+}
+
+async function setupBrowserPreviewOLD(componentName, previewPaths) {
+  log('🌐 Step 10.5: Setting up browser preview...', 'blue');
+  
+  try {
+    // 1. Copy component to generated-app temporarily
+    tempComponentPath = path.join(config.componentDir, componentName);
+    await fs.mkdir(tempComponentPath, { recursive: true });
+    
+    await fs.copyFile(previewPaths.ts, path.join(tempComponentPath, `${componentName}.component.ts`));
+    await fs.copyFile(previewPaths.html, path.join(tempComponentPath, `${componentName}.component.html`));
+    await fs.copyFile(previewPaths.scss, path.join(tempComponentPath, `${componentName}.component.scss`));
+    
+    log(`✓ Component copied to generated-app`, 'green');
+    
+    // 2. Update routes temporarily
+    await updateRoutes(componentName, 'add-temp');
+    log(`✓ Routes updated temporarily`, 'green');
+    
+    // 3. Start ng serve in background
+    log('🚀 Starting Angular dev server (this may take 30-60 seconds)...', 'yellow');
+    const { spawn } = await import('child_process');
+    
+    const isWindows = process.platform === 'win32';
+    const npmCmd = isWindows ? 'npm.cmd' : 'npm';
+    
+    devServerProcess = spawn(npmCmd, ['start'], {
+      cwd: path.join(__dirname, '..', 'generated-app'),
+      shell: true,
+      detached: false,
+      stdio: 'pipe'
+    });
+    
+    // Wait for server to be ready
+    let serverReady = false;
+    let output = '';
+    
+    await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('Server startup timeout after 120 seconds'));
+      }, 120000);
+      
+      devServerProcess.stdout.on('data', (data) => {
+        output += data.toString();
+        if (output.includes('compiled successfully') || output.includes('Compiled successfully')) {
+          serverReady = true;
+          clearTimeout(timeout);
+          resolve();
+        }
+      });
+      
+      devServerProcess.stderr.on('data', (data) => {
+        const error = data.toString();
+        if (error.includes('Address already in use')) {
+          log('⚠️  Port 4200 already in use, assuming server is running', 'yellow');
+          serverReady = true;
+          clearTimeout(timeout);
+          resolve();
+        }
+      });
+      
+      devServerProcess.on('error', (error) => {
+        clearTimeout(timeout);
+        reject(error);
+      });
+    });
+    
+    if (serverReady) {
+      log('✓ Dev server is running!', 'green');
+      
+      // 4. Open browser
+      const url = `http://localhost:4200/${componentName}`;
+      log(`🌐 Opening browser: ${url}`, 'cyan');
+      
+      const openCmd = process.platform === 'win32' ? 'start' : 
+                      process.platform === 'darwin' ? 'open' : 'xdg-open';
+      
+      await execAsync(`${openCmd} ${url}`).catch(() => {
+        log(`⚠️  Could not auto-open browser. Please visit: ${url}`, 'yellow');
+      });
+      
+      log('✓ Browser preview ready!', 'green');
+      log('📝 Review the component visually before accepting', 'cyan');
+      
+      return true;
+    }
+    
+    return false;
+    
+  } catch (error) {
+    log(`⚠️  Browser preview failed: ${error.message}`, 'yellow');
+    log('   Continuing with code-only preview...', 'yellow');
+    return false;
+  }
+}
+
+async function cleanupBrowserPreview(componentName, keepFiles = false) {
+  log('🧹 Cleaning up browser preview...', 'blue');
+  
+  // Note: We DON'T stop the dev server (it's in a separate terminal window)
+  // User can stop it manually with Ctrl+C in that window
+  
+  // Remove temporary files (if rejecting)
+  if (!keepFiles && tempComponentPath) {
+    try {
+      await fs.rm(tempComponentPath, { recursive: true, force: true });
+      log('  ✓ Temporary component files removed', 'green');
+    } catch (error) {
+      log('  ⚠️  Could not remove temporary files', 'yellow');
+    }
+  }
+  
+  // Revert routes (if rejecting)
+  if (!keepFiles) {
+    try {
+      await updateRoutes(componentName, 'remove-temp');
+      log('  ✓ Routes reverted', 'green');
+    } catch (error) {
+      log('  ⚠️  Could not revert routes', 'yellow');
+    }
+  }
+  
+  log('✓ Cleanup complete', 'green');
+  if (!keepFiles) {
+    log('💡 Note: Dev server is still running in separate window', 'cyan');
+    log('   Press Ctrl+C in that window to stop it', 'cyan');
+  }
+}
+
+// Helper function to update routes
+async function updateRoutes(componentName, action) {
+  const routesPath = config.routesPath;
+  let routesContent = await fs.readFile(routesPath, 'utf-8');
+  
+  const componentClassName = componentName.split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('') + 'Component';
+  
+  if (action === 'add-temp' || action === 'add-permanent') {
+    // Add import if not exists
+    const importStatement = `import { ${componentClassName} } from './components/${componentName}/${componentName}.component';`;
+    if (!routesContent.includes(importStatement)) {
+      const firstImportMatch = routesContent.match(/import { \w+ } from/);
+      if (firstImportMatch) {
+        const insertPos = firstImportMatch.index + firstImportMatch[0].length;
+        routesContent = routesContent.slice(0, insertPos) + 
+                       `\n${importStatement}` + 
+                       routesContent.slice(insertPos);
+      } else {
+        routesContent = importStatement + '\n' + routesContent;
+      }
+    }
+    
+    // Add route
+    const routeEntry = `  { path: '${componentName}', component: ${componentClassName} },`;
+    if (!routesContent.includes(routeEntry)) {
+      const routesMatch = routesContent.match(/export const routes: Routes = \[/);
+      if (routesMatch) {
+        const insertPos = routesMatch.index + routesMatch[0].length;
+        routesContent = routesContent.slice(0, insertPos) + 
+                       `\n${routeEntry}` + 
+                       routesContent.slice(insertPos);
+      }
+    }
+    
+  } else if (action === 'remove-temp') {
+    // Remove import
+    const importRegex = new RegExp(`import { ${componentClassName} } from './components/${componentName}/${componentName}.component';\\n?`, 'g');
+    routesContent = routesContent.replace(importRegex, '');
+    
+    // Remove route
+    const routeRegex = new RegExp(`\\s*{ path: '${componentName}', component: ${componentClassName} },?\\n?`, 'g');
+    routesContent = routesContent.replace(routeRegex, '');
+  }
+  
+  await fs.writeFile(routesPath, routesContent, 'utf-8');
+}
+
+// ============================================================================
 // STEP 11: Interactive Approval Prompt
 // ============================================================================
 async function promptForApproval(cssValidation) {
@@ -561,11 +935,15 @@ async function handleApproval(choice, componentName, previewPaths, cssValidation
       if (!cssValidation.isValid) {
         log('\n⚠️  Warning: Proceeding with CSS violations!', 'yellow');
       }
+      // Cleanup browser preview but keep component files (we're accepting them)
+      await cleanupBrowserPreview(componentName, true);
       await moveToFinalLocation(componentName, previewPaths);
       await createGitCommit(componentName, fileKey, nodeId);
       break;
 
     case 'R':
+      // Cleanup and remove everything (will regenerate)
+      await cleanupBrowserPreview(componentName, false);
       log('\n🔄 Regenerating with stricter enforcement...', 'yellow');
       log('   (This will re-run the generator)', 'yellow');
       return 'regenerate';
@@ -573,19 +951,25 @@ async function handleApproval(choice, componentName, previewPaths, cssValidation
     case 'F':
       log('\n🔧 Auto-fix not yet implemented', 'yellow');
       log('   For now, please edit manually or regenerate', 'yellow');
+      // Keep browser preview running for manual edits
       return 'cancel';
 
     case 'E':
       log('\n✓ Files remain in .preview/ for manual editing', 'green');
       log('   Run generator again when ready to finalize', 'green');
+      // Keep browser preview running so user can see changes
+      log('   Browser preview will stay running for testing', 'cyan');
       return 'edit';
 
     case 'C':
+      // Cleanup everything
+      await cleanupBrowserPreview(componentName, false);
       await fs.rm(path.dirname(previewPaths.ts), { recursive: true, force: true });
       log('\n✓ Preview cancelled and deleted', 'green');
       return 'cancel';
 
     default:
+      await cleanupBrowserPreview(componentName, false);
       log('\n❌ Invalid choice. Cancelling.', 'red');
       return 'cancel';
   }
@@ -618,8 +1002,8 @@ async function moveToFinalLocation(componentName, previewPaths) {
 
   log(`✓ Files moved to: generated-app/src/app/components/${componentName}/`, 'green');
   
-  // Auto-update routes
-  await updateRoutes(componentName);
+  // Auto-update routes permanently
+  await updateRoutes(componentName, 'add-permanent');
   
   return finalPaths;
 }
@@ -627,54 +1011,6 @@ async function moveToFinalLocation(componentName, previewPaths) {
 // ============================================================================
 // Auto-Update Routes in app.routes.ts
 // ============================================================================
-async function updateRoutes(componentName) {
-  log('🔄 Auto-updating routes...', 'blue');
-  
-  try {
-    const routesContent = await fs.readFile(config.routesPath, 'utf-8');
-    
-    // Convert component name to PascalCase for class name
-    const className = toPascalCase(componentName) + 'Component';
-    const kebabName = componentName;
-    
-    // Check if import already exists
-    const importStatement = `import { ${className} } from './components/${componentName}/${componentName}.component';`;
-    
-    if (!routesContent.includes(importStatement)) {
-      // Add import after other imports
-      const lastImportMatch = routesContent.match(/import.*from.*;\n(?!import)/);
-      if (lastImportMatch) {
-        const insertPos = lastImportMatch.index + lastImportMatch[0].length;
-        routesContent = routesContent.slice(0, insertPos) + importStatement + '\n' + routesContent.slice(insertPos);
-      }
-      
-      // Add route before wildcard route
-      const routeEntry = `  { path: '${kebabName}', component: ${className} },`;
-      const wildcardMatch = routesContent.match(/\s*{\s*path:\s*['"]\*\*['"]/);
-      
-      if (wildcardMatch) {
-        const insertPos = wildcardMatch.index;
-        routesContent = routesContent.slice(0, insertPos) + routeEntry + '\n' + routesContent.slice(insertPos);
-      } else {
-        // No wildcard, add before closing bracket
-        const closingMatch = routesContent.match(/\n];/);
-        if (closingMatch) {
-          const insertPos = closingMatch.index;
-          routesContent = routesContent.slice(0, insertPos) + '\n' + routeEntry + routesContent.slice(insertPos);
-        }
-      }
-      
-      await fs.writeFile(config.routesPath, routesContent, 'utf-8');
-      log(`✓ Route added: /${kebabName} → ${className}`, 'green');
-    } else {
-      log(`  Route already exists for ${componentName}`, 'yellow');
-    }
-  } catch (error) {
-    log(`⚠️  Could not auto-update routes: ${error.message}`, 'yellow');
-    log(`  Please manually add route to app.routes.ts`, 'yellow');
-  }
-}
-
 // ============================================================================
 // STEP 14: Create Git Commit with Enhanced Messages
 // ============================================================================
@@ -795,11 +1131,21 @@ async function main() {
     const prompt = buildStrictPrompt(figmaNode, brandCSS, componentName);
     const generatedCode = await generateWithGranite(prompt, accessToken);
     const files = parseGeneratedCode(generatedCode);
+    
+    // Fix TypeScript logic by adding missing properties
+    files.typescript = fixTypeScriptLogic(files.typescript, files.html);
+    
     const cssValidation = validateCSSStrict(files.html, brandCSS.classes);
     const previewPaths = await saveToPreview(componentName, files);
     
     showPreviewSummary(componentName, files, cssValidation);
     await openInVSCode(previewPaths);
+    
+    // Setup browser preview
+    const browserPreviewReady = await setupBrowserPreview(componentName, previewPaths);
+    if (browserPreviewReady) {
+      log('\n💡 TIP: Check the browser to see your component rendered!', 'cyan');
+    }
     
     const choice = await promptForApproval(cssValidation);
     const result = await handleApproval(choice, componentName, previewPaths, cssValidation, fileKey, nodeId);

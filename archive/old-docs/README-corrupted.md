@@ -1,4 +1,4 @@
-# 🎨 Figma to Angular Code Generator# 🎨 Figma to Angular Code Generator# 🎨 Figma to Angular Code Generator# Figma UX to UI Code Generator
+# 🎨 Figma to Angular Code Generator# 🎨 Figma to Angular Code Generator# Figma UX to UI Code Generator
 
 
 
@@ -6,329 +6,163 @@
 
 
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)**AI-powered Python pipeline that transforms Figma designs into production-ready Angular components**
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)**AI-powered Python pipeline that transforms Figma designs into production-ready Angular components****AI-powered pipeline that transforms Figma designs into production-ready Angular components**
 
 [![Python](https://img.shields.io/badge/Python-3.8+-green)](https://python.org/)
 
 [![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)
 
+[![IBM Granite](https://img.shields.io/badge/IBM-Granite_LLM-blue)](https://www.ibm.com/products/watsonx-ai)
 
-
----[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)**AI-powered Python pipeline that transforms Figma designs into production-ready Angular components****AI-powered pipeline that transforms Figma designs into production-ready Angular components**
-
-
-
-## 🚀 Quick Start[![Python](https://img.shields.io/badge/Python-3.8+-green)](https://python.org/)
-
-
-
-### Installation[![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)
-
-
-
-```bash[![IBM Granite](https://img.shields.io/badge/IBM-Granite_LLM-blue)](https://www.ibm.com/products/watsonx-ai)
-
-# Clone & install
-
-git clone https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR.git[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)
-
-cd FIGMA-UX-TO-UI-CODE-GENERATOR
-
-pip install -r requirements.txt---
-
-cd generated-app && npm install && cd ..
-
-[![Python](https://img.shields.io/badge/Python-3.8+-green)](https://python.org/)[![Node](https://img.shields.io/badge/Node.js-18+-green)](https://nodejs.org/)
-
-# Configure
-
-cp .env.template .env## 🚀 Overview
-
-# Edit .env with your Figma and IBM tokens
-
-```[![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)[![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)
-
-
-
-### Run PipelineAutomated pipeline that converts Figma designs into production-ready Angular components:
-
-
-
-```bash[![IBM Granite](https://img.shields.io/badge/IBM-Granite_LLM-blue)](https://www.ibm.com/products/watsonx-ai)
-
-# Validate
-
-python test_pipeline_setup.py1. **Fetches** Figma designs via REST API
-
-
-
-# Generate component2. **Generates** Angular code using IBM Granite LLM (3-8B-Instruct)## Overview
-
-python pipeline/generate_pipeline.py <figma_file_key> <node_id> <component_name>
-
-3. **Auto-fixes** TypeScript properties referenced in HTML
-
-# Example
-
-python pipeline/generate_pipeline.py 0eg3UmbqMcZtym1x8sGtZX 261-1272 home-page4. **Validates** strict UPS brand CSS (53 approved classes only)---
-
-```
-
-5. **Previews** components with automatic browser opening
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)
 
 ---
 
-6. **Manages** Angular routes automaticallyThis repository contains a complete code generation pipeline that:
+[![Python](https://img.shields.io/badge/Python-3.8+-green)](https://python.org/)[![Node](https://img.shields.io/badge/Node.js-18+-green)](https://nodejs.org/)
 
-## 📖 Full Documentation
+## 🚀 Overview
+
+[![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)[![Angular](https://img.shields.io/badge/Angular-20+-red)](https://angular.io/)
+
+Automated pipeline that converts Figma designs into production-ready Angular components:
+
+[![IBM Granite](https://img.shields.io/badge/IBM-Granite_LLM-blue)](https://www.ibm.com/products/watsonx-ai)
+
+1. **Fetches** Figma designs via REST API
+
+2. **Generates** Angular code using IBM Granite LLM (3-8B-Instruct)## Overview
+
+3. **Auto-fixes** TypeScript properties referenced in HTML
+
+4. **Validates** strict UPS brand CSS (53 approved classes only)---
+
+5. **Previews** components with automatic browser opening
+
+6. **Manages** Angular routes automaticallyThis repository contains a complete code generation pipeline that:
 
 7. **Approves** interactively (Accept/Reject/Regenerate)
 
-All documentation is in this single README. No external files needed!
-
 ## 🚀 Overview1. **Fetches** Figma designs via API
 
-### Table of Contents
+**Time Savings:** 2 hours manual coding → 30 seconds automated  
 
-- [Features](#-features)**Time Savings:** 2 hours manual coding → 30 seconds automated  
+**Accuracy:** 86% feature completion  2. **Generates** Angular components using IBM Granite LLM
 
-- [How It Works](#-how-it-works)
-
-- [Commands](#-commands)**Accuracy:** 86% feature completion  2. **Generates** Angular components using IBM Granite LLM
-
-- [Demo Script](#-demo-script)
-
-- [Troubleshooting](#-troubleshooting)**Brand Safety:** 100% CSS enforcement
-
-- [Environment Setup](#-environment-setup)
+**Brand Safety:** 100% CSS enforcement
 
 This repository contains an automated pipeline that:3. **Validates** strict UPS brand CSS compliance
 
 ---
 
----
-
-## ✨ Features
-
 1. **Fetches** Figma designs via REST API4. **Previews** components with interactive approval
 
-**AI-Powered:** IBM Granite 3-8B-Instruct LLM  
+## ⚡ Quick Start
 
-**Auto-Fix:** TypeScript properties auto-injected  ## ⚡ Quick Start
-
-**Brand Safe:** 53 UPS CSS classes enforced  
-
-**Browser Preview:** Chrome opens automatically  2. **Generates** Angular components using IBM Granite LLM (3-8B-Instruct)5. **Automates** Git branching and routing
-
-**Interactive:** Accept/Reject/Regenerate workflow  
+2. **Generates** Angular components using IBM Granite LLM (3-8B-Instruct)5. **Automates** Git branching and routing
 
 ### Prerequisites
 
-**Time:** 2 hours → 30 seconds  
+3. **Auto-fixes** TypeScript properties referenced in HTML
 
-**Success:** 86% completion rate3. **Auto-fixes** TypeScript properties referenced in HTML
+- **Python 3.8+** ([Download](https://python.org))
 
+- **Node.js 18+** (for Angular CLI)4. **Validates** strict UPS brand CSS compliance (53 approved classes)Built for **UPS** to accelerate frontend development from Figma designs.
 
+- **Figma Personal Access Token** ([Get one](https://www.figma.com/developers/api#access-tokens))
 
----- **Python 3.8+** ([Download](https://python.org))
-
-
-
-## 🎨 How It Works- **Node.js 18+** (for Angular CLI)4. **Validates** strict UPS brand CSS compliance (53 approved classes)Built for **UPS** to accelerate frontend development from Figma designs.
+- **IBM Cloud API Key** ([Get one](https://cloud.ibm.com/iam/apikeys))5. **Previews** components with automatic browser opening
 
 
-
-1. **Fetch** Figma design via REST API (~2 sec)- **Figma Personal Access Token** ([Get one](https://www.figma.com/developers/api#access-tokens))
-
-2. **Generate** Angular code with IBM Granite (~5-8 sec)
-
-3. **Fix** TypeScript properties automatically- **IBM Cloud API Key** ([Get one](https://cloud.ibm.com/iam/apikeys))5. **Previews** components with automatic browser opening
-
-4. **Validate** CSS against 53 approved UPS classes
-
-5. **Preview** Opens Chrome to localhost:4200
-
-6. **Approve** Accept/Reject/Regenerate
 
 ### Installation6. **Manages** Angular routes automatically---
 
----
 
-
-
-## 🔧 Commands
 
 ```bash7. **Approves** interactively (Accept/Reject/Regenerate)
 
-```bash
-
-# Validate setup# 1. Clone repository
-
-python test_pipeline_setup.py
+# 1. Clone repository
 
 git clone https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR.git## 🚀 Quick Start
 
-# Generate component
+cd FIGMA-UX-TO-UI-CODE-GENERATOR
 
-python pipeline/generate_pipeline.py <file_key> <node_id> <name>cd FIGMA-UX-TO-UI-CODE-GENERATOR
+Built for **UPS** to accelerate frontend development from Figma designs.
 
+# 2. Install Python dependencies
 
-
-# Angular dev serverBuilt for **UPS** to accelerate frontend development from Figma designs.
-
-cd generated-app && npm start
-
-```# 2. Install Python dependencies
+pip install -r requirements.txt### Prerequisites
 
 
 
----pip install -r requirements.txt### Prerequisites
+# 3. Install Angular dependencies (first time only)---- Node.js 18+
 
+cd generated-app
 
+npm install- Figma Personal Access Token ([Get one here](https://www.figma.com/developers/api#access-tokens))
 
-## 🎬 Demo Script
+cd ..
 
+## ⚡ Quick Start- IBM Granite API Key
 
-
-```bash# 3. Install Angular dependencies (first time only)---- Node.js 18+
-
-# 1. Run pipeline
-
-python pipeline/generate_pipeline.py 0eg3UmbqMcZtym1x8sGtZX 261-1272 democd generated-app
-
-
-
-# 2. Watch console output (colored steps)npm install- Figma Personal Access Token ([Get one here](https://www.figma.com/developers/api#access-tokens))
-
-
-
-# 3. Browser opens automaticallycd ..
-
-
-
-# 4. Review component in generated-app/src/app/components/demo/## ⚡ Quick Start- IBM Granite API Key
-
-
-
-# 5. Choose: A (Accept) / R (Reject) / G (Regenerate)# 4. Configure environment
-
-```
+# 4. Configure environment
 
 cp .env.template .env
 
----
-
 # Edit .env with your Figma and IBM tokens
-
-## 🐛 Troubleshooting
 
 ```### Prerequisites### Installation
 
-**Module not found?**
-
-```bash
-
-pip install -r requirements.txt
-
-```### Generate Your First Component- **Python 3.8+** ([Download](https://python.org))
 
 
+### Generate Your First Component- **Python 3.8+** ([Download](https://python.org))
 
-**Token error?**
 
-Check `.env` file exists with correct format.
 
 ```bash- **Node.js 18+** (for Angular CLI)```bash
 
-**Server won't start?**
+# Validate setup
 
-```bash# Validate setup
-
-netstat -ano | findstr :4200
-
-Stop-Process -Id <PID> -Forcepython test_pipeline_setup.py- **Figma Personal Access Token** ([Get one](https://www.figma.com/developers/api#access-tokens))# 1. Clone repository
-
-```
+python test_pipeline_setup.py- **Figma Personal Access Token** ([Get one](https://www.figma.com/developers/api#access-tokens))# 1. Clone repository
 
 
-
----
 
 # Run pipeline- **IBM Cloud API Key** ([Get one](https://cloud.ibm.com/iam/apikeys))git clone https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR.git
 
-## 📋 Environment Setup
-
 python pipeline/generate_pipeline.py <figma_file_key> <node_id> <component_name>
 
-Create `.env`:
+cd FIGMA-UX-TO-UI-CODE-GENERATOR
 
-```bashcd FIGMA-UX-TO-UI-CODE-GENERATOR
+# Example
 
-FIGMA_ACCESS_TOKEN=figd_your_token
-
-IBM_GRANITE_API_KEY=your_ibm_key# Example
-
-IBM_GRANITE_PROJECT_ID=your_project_id
-
-```python pipeline/generate_pipeline.py 0eg3UmbqMcZtym1x8sGtZX 261-1272 home-page### Installation
-
-
-
-**Get tokens:**```
-
-- Figma: Settings → Personal Access Tokens
-
-- IBM: cloud.ibm.com → IAM → API keys# 2. Install pipeline dependencies
-
-
-
----**What happens:**
-
-
-
-## 📂 Structure1. Fetches Figma design (~2 seconds)```bashnpm install
-
-
-
-```2. Generates code with IBM Granite LLM (~5-8 seconds)
-
-FIGMA-UX-TO-UI-CODE-GENERATOR/
-
-├── pipeline/generate_pipeline.py  ⭐ Main3. Auto-fixes missing TypeScript properties# 1. Clone repository
-
-├── generated-app/                 Angular 20
-
-├── requirements.txt4. Validates CSS against UPS brand guidelines
-
-├── test_pipeline_setup.py
-
-└── .env5. Opens browser preview automaticallygit clone https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR.git# 3. Install Angular app dependencies
+python pipeline/generate_pipeline.py 0eg3UmbqMcZtym1x8sGtZX 261-1272 home-page### Installation
 
 ```
 
-6. Prompts for approval: **A**ccept / **R**eject / Re**g**enerate
+# 2. Install pipeline dependencies
 
----
+**What happens:**
+
+1. Fetches Figma design (~2 seconds)```bashnpm install
+
+2. Generates code with IBM Granite LLM (~5-8 seconds)
+
+3. Auto-fixes missing TypeScript properties# 1. Clone repository
+
+4. Validates CSS against UPS brand guidelines
+
+5. Opens browser preview automaticallygit clone https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR.git# 3. Install Angular app dependencies
+
+6. Prompts for approval: **A**ccept / **R**eject / Re**g**enerate
 
 cd FIGMA-UX-TO-UI-CODE-GENERATORcd generated-app
 
-## 🔗 Links
-
 ---
 
-- [Repo](https://github.com/jainshauryaups/FIGMA-UX-TO-UI-CODE-GENERATOR)
-
-- [Figma API](https://www.figma.com/developers/api)npm install
-
-- [IBM Granite](https://www.ibm.com/products/watsonx-ai)
+npm install
 
 ## 📂 Project Structure
 
----
-
 # 2. Install Python dependenciescd ..
-
-**Built by UPS Development Team** | October 2025
 
 ```
 

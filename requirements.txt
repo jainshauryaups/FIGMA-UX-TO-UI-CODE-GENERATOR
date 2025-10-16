@@ -1,0 +1,10 @@
+# Python Dependencies for Figma to Angular Code Generator
+# Install with: pip install -r requirements.txt
+
+# HTTP requests for Figma API and IBM Granite
+requests==2.31.0
+
+# Environment variable management
+python-dotenv==1.0.0
+
+# Note: subprocess, webbrowser, pathlib, shutil, re, json are standard library modules

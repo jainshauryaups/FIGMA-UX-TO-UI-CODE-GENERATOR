@@ -8,5 +8,7 @@
         "MCP_SERVER_PORT": "3845"
       }
     }
-  }
+},
+"python-envs.defaultEnvManager": "ms-python.python:system",
+"python-envs.pythonProjects": []
 }
