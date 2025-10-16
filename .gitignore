@@ -47,12 +47,22 @@ Thumbs.db
 .env.local
 .env.*.local
 
-# Preview folder (temporary)
-.preview/
+# Preview folder (temporary - in pipeline)
+pipeline/.preview/
 
 # Copilot session (contains conversation history with tokens)
 copilot-session.json
 
-# Large exports
-figma-exports/*.json
-llm-processing/*.json
+# Large exports (new structure)
+pipeline/exports/*.json
+pipeline/processing/*.json
+
+# Old folders (to be deleted after migration)
+figma-exports/
+llm-processing/
+.preview/
+
+# Generated app specifics
+generated-app/node_modules/
+generated-app/.angular/
+generated-app/dist/

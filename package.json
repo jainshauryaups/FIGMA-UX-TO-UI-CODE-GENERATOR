@@ -1,50 +1,37 @@
 {
-  "name": "ups-tracking-angular",
+  "name": "figma-ux-to-ui-pipeline",
   "version": "1.0.0",
+  "description": "Figma to Angular code generation pipeline with IBM Granite LLM",
+  "type": "module",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint",
-    "mcp-server": "node figma-mcp-server.mjs",
-    "figma:fetch": "node fetch-figma-json.mjs",
-    "figma:automate": "node automate-figma-llm.mjs",
-    "figma:generate": "node generate-from-figma.mjs",
-    "figma:test": "node test-granite-api.mjs",
-    "figma:dev": "node generate-with-preview.mjs"
+    "generate": "node pipeline/generate-with-preview.mjs",
+    "figma:fetch": "node pipeline/fetch-figma-json.mjs",
+    "figma:automate": "node pipeline/automate-figma-llm.mjs",
+    "figma:test": "node pipeline/servers/test-granite-api.mjs",
+    "mcp-server": "node pipeline/figma-mcp-server.mjs",
+    "help": "echo 'Run npm run generate to start the code generator'"
   },
+  "keywords": [
+    "figma",
+    "angular",
+    "code-generation",
+    "ai",
+    "ibm-granite",
+    "mcp-server"
+  ],
+  "author": "UPS",
+  "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.3.0",
-    "@angular/common": "^20.3.0",
-    "@angular/compiler": "^20.3.0",
-    "@angular/core": "^20.3.0",
-    "@angular/forms": "^20.3.0",
-    "@angular/platform-browser": "^20.3.0",
-    "@angular/platform-browser-dynamic": "^20.3.0",
-    "@angular/router": "^20.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "node-fetch": "^3.3.2",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.8.0",
-    "zone.js": "~0.15.0"
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^20.3.0",
-    "@angular/cli": "^20.3.0",
-    "@angular/compiler-cli": "^20.3.0",
-    "@types/jasmine": "~5.1.0",
-    "@types/node": "^22.0.0",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.0"
+    "@types/node": "^22.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

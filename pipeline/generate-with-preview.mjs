@@ -35,8 +35,9 @@ const config = {
   ibmIamEndpoint: 'https://iam.cloud.ibm.com/identity/token',
   modelId: 'ibm/granite-3-8b-instruct',
   previewDir: path.join(__dirname, '.preview'),
-  componentDir: path.join(__dirname, 'src', 'app', 'components'),
-  stylesPath: path.join(__dirname, 'src', 'styles.scss'),
+  componentDir: path.join(__dirname, '..', 'generated-app', 'src', 'app', 'components'),
+  stylesPath: path.join(__dirname, '..', 'generated-app', 'src', 'styles.scss'),
+  routesPath: path.join(__dirname, '..', 'generated-app', 'src', 'app', 'app.routes.ts'),
 };
 
 // Validate required environment variables
@@ -615,7 +616,7 @@ async function moveToFinalLocation(componentName, previewPaths) {
   // Delete preview
   await fs.rm(path.dirname(previewPaths.ts), { recursive: true, force: true });
 
-  log(`✓ Files moved to: src/app/components/${componentName}/`, 'green');
+  log(`✓ Files moved to: generated-app/src/app/components/${componentName}/`, 'green');
   
   // Auto-update routes
   await updateRoutes(componentName);
@@ -630,8 +631,7 @@ async function updateRoutes(componentName) {
   log('🔄 Auto-updating routes...', 'blue');
   
   try {
-    const routesPath = path.join(__dirname, 'src', 'app', 'app.routes.ts');
-    let routesContent = await fs.readFile(routesPath, 'utf-8');
+    const routesContent = await fs.readFile(config.routesPath, 'utf-8');
     
     // Convert component name to PascalCase for class name
     const className = toPascalCase(componentName) + 'Component';
@@ -664,7 +664,7 @@ async function updateRoutes(componentName) {
         }
       }
       
-      await fs.writeFile(routesPath, routesContent, 'utf-8');
+      await fs.writeFile(config.routesPath, routesContent, 'utf-8');
       log(`✓ Route added: /${kebabName} → ${className}`, 'green');
     } else {
       log(`  Route already exists for ${componentName}`, 'yellow');
@@ -719,11 +719,11 @@ async function createGitCommit(componentName, figmaFileKey, nodeId) {
     }
 
     // Stage component files
-    await execAsync(`git add src/app/components/${componentName}/`);
+    await execAsync(`git add generated-app/src/app/components/${componentName}/`);
     
     // Stage routes file if modified
     try {
-      await execAsync('git add src/app/app.routes.ts');
+      await execAsync('git add generated-app/src/app/app.routes.ts');
     } catch {
       // Routes file might not be modified
     }
@@ -733,7 +733,7 @@ async function createGitCommit(componentName, figmaFileKey, nodeId) {
 
 - Generated from Figma node: ${nodeId}
 - File: ${figmaFileKey}
-- Component path: src/app/components/${componentName}/
+- Component path: generated-app/src/app/components/${componentName}/
 - Route: /${componentName}
 - Generated with AI pipeline using IBM Granite LLM
 - UPS brand CSS compliant`;
