@@ -1,0 +1,24 @@
+<svg width="40" height="46" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 46">
+  <defs>
+    <style>
+      .ups-shield { fill: #8B4513; }
+      .ups-text { fill: #FFC400; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: bold; }
+    </style>
+  </defs>
+  
+  <!-- Official UPS Shield Shape -->
+  <path d="M20 3 L34 8 L34 26 C34 32 29 38 20 42 C11 38 6 32 6 26 L6 8 L20 3 Z" class="ups-shield"/>
+  
+  <!-- UPS Shield Border -->
+  <path d="M20 1 L36 7 L36 27 C36 34 30 41 20 45 C10 41 4 34 4 27 L4 7 L20 1 Z" 
+        fill="none" stroke="#654321" stroke-width="0.5"/>
+  
+  <!-- UPS Text -->
+  <text x="20" y="20" text-anchor="middle" class="ups-text" font-size="9" font-weight="bold">UPS</text>
+  
+  <!-- Trademark Symbol -->
+  <text x="32" y="15" text-anchor="middle" fill="#FFC400" font-size="4">®</text>
+  
+  <!-- Bottom Text -->
+  <text x="20" y="35" text-anchor="middle" fill="#FFC400" font-size="4" font-weight="normal">United Parcel Service</text>
+</svg>

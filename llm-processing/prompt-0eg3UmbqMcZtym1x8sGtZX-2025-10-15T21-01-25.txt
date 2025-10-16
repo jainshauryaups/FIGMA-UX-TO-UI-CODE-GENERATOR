@@ -1,0 +1,22 @@
+You are analyzing a Figma design. Here is the processed design data:
+
+## Design Metadata
+- Name: Home page improvements
+- Last Modified: 2025-10-15T17:03:47Z
+- Version: 2275190846617098656
+
+## Design Structure
+{}
+
+## Styles
+{}
+
+## Components
+{}
+
+Please analyze this design and provide:
+1. A summary of the design structure
+2. Key UI components identified
+3. Color palette and typography used
+4. Recommendations for implementation
+5. Any accessibility considerations

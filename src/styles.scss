@@ -1,0 +1,107 @@
+// UPS Brand Colors
+:root {
+  --ups-gold: #FFC400;
+  --ups-white: #FFFFFF;
+  --ups-black: #121212;
+  --ups-brown-digital: #351C15;
+  --ups-grey-1: #5F5753;
+  --ups-grey-2: #8C857E;
+  --ups-grey-3: #BFB8AF;
+  --ups-grey-4: #DFDBD7;
+  --ups-grey-5: #F2F1EF;
+  --ups-blue: #0662BB;
+}
+
+// Global Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Utility Classes
+.text-ups-black { color: var(--ups-black); }
+.text-ups-white { color: var(--ups-white); }
+.text-ups-gold { color: var(--ups-gold); }
+.text-ups-brown { color: var(--ups-brown-digital); }
+.text-ups-grey-1 { color: var(--ups-grey-1); }
+.text-ups-grey-2 { color: var(--ups-grey-2); }
+.text-ups-grey-3 { color: var(--ups-grey-3); }
+.text-ups-blue { color: var(--ups-blue); }
+
+.bg-ups-black { background-color: var(--ups-black); }
+.bg-ups-white { background-color: var(--ups-white); }
+.bg-ups-gold { background-color: var(--ups-gold); }
+.bg-ups-grey-4 { background-color: var(--ups-grey-4); }
+.bg-ups-grey-5 { background-color: var(--ups-grey-5); }
+
+// Typography
+.font-roboto-light { font-weight: 300; }
+.font-roboto-regular { font-weight: 400; }
+.font-roboto-medium { font-weight: 500; }
+.font-roboto-bold { font-weight: 700; }
+.font-roboto-black { font-weight: 900; }
+
+// Flexbox utilities
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.gap-8 { gap: 32px; }
+
+// Positioning
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+
+// Sizing
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.size-full { width: 100%; height: 100%; }
+
+// Padding and Margin
+.p-4 { padding: 16px; }
+.px-4 { padding-left: 16px; padding-right: 16px; }
+.py-4 { padding-top: 16px; padding-bottom: 16px; }
+.m-0 { margin: 0; }
+
+// Border Radius
+.rounded { border-radius: 4px; }
+.rounded-lg { border-radius: 8px; }
+.rounded-full { border-radius: 9999px; }
+
+// Shadows
+.shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+
+// Backdrop
+.backdrop-blur { backdrop-filter: blur(6px); }
+
+// Cursor
+.cursor-pointer { cursor: pointer; }
+
+// Text
+.text-center { text-align: center; }
+.text-nowrap { white-space: nowrap; }
+.truncate { 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Overflow
+.overflow-hidden { overflow: hidden; }
+
+// Z-index
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }

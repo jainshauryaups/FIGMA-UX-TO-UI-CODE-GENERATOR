@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "figma": {
+      "command": "node",
+      "args": ["figma-mcp-server.mjs"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "${env:FIGMA_ACCESS_TOKEN}",
+        "MCP_SERVER_PORT": "3845"
+      }
+    }
+  }
+}

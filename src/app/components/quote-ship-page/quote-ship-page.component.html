@@ -1,0 +1,633 @@
+<div class="quote-ship-page" data-name="LVP - Ship" data-node-id="261:1272">
+  <!-- Hero Section -->
+  <div class="hero" data-name="hero" data-node-id="300:1839">
+    <!-- Hero Background -->
+    <div class="hero-bg" data-name="hero bg" data-node-id="261:1281">
+      <div class="hero-image" data-name="1107007~747-8-1-1080 1" data-node-id="261:1282">
+        <img alt="UPS truck background" class="hero-background-img" src="/assets/ups-truck-hero.jpg" />
+      </div>
+      <div class="hero-overlay" data-node-id="261:1283"></div>
+      <div class="hero-accent" data-node-id="261:1284"></div>
+      <div class="hero-vector" data-name="Vector" data-node-id="261:1285">
+        <img alt="" src="/assets/ups-vector-overlay.svg" />
+      </div>
+    </div>
+    
+    <!-- Navigation Header -->
+    <div class="nav-header" data-node-id="261:1286">
+      <div class="nav-left" data-node-id="261:1287">
+        <div class="ups-logo" data-name="ups-logo 1" data-node-id="261:1288">
+          <img alt="UPS Logo" src="/assets/ups-logo.svg?v=2" />
+        </div>
+        
+        <div class="nav-menu" data-node-id="261:1291">
+          <div class="nav-item" (click)="onNavItemClick('track-ship')" data-node-id="261:1292">
+            <p class="nav-text">Track & Ship</p>
+            <div class="expand-icon" data-name="expand_more" data-node-id="261:1294">
+              <img alt="" src="/assets/expand-more.svg" />
+            </div>
+          </div>
+          
+          <div class="nav-item" (click)="onNavItemClick('services')" data-node-id="261:1297">
+            <p class="nav-text">Services</p>
+            <div class="expand-icon" data-name="expand_more" data-node-id="261:1299">
+              <img alt="" src="/assets/expand-more.svg" />
+            </div>
+          </div>
+          
+          <div class="nav-item" (click)="onNavItemClick('ups-store')" data-node-id="261:1302">
+            <p class="nav-text">The UPS Store</p>
+            <div class="expand-icon" data-name="expand_more" data-node-id="261:1304">
+              <img alt="" src="/assets/expand-more.svg" />
+            </div>
+          </div>
+          
+          <div class="nav-item" (click)="onNavItemClick('support')" data-node-id="261:1307">
+            <p class="nav-text">Support</p>
+            <div class="expand-icon" data-name="expand_more" data-node-id="261:1309">
+              <img alt="" src="/assets/expand-more.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-right" data-node-id="261:1312">
+        <div class="nav-secondary" data-node-id="261:1313">
+          <div class="location-info" data-node-id="261:1314">
+            <div class="location-text" data-node-id="261:1315">
+              <p class="location-label">UPS Location Near 99999:</p>
+              <p class="location-address">1234 Package Drive</p>
+            </div>
+            <div class="expand-icon small" data-name="expand_more" data-node-id="261:1318">
+              <img alt="" src="/assets/expand-more.svg" />
+            </div>
+          </div>
+          
+          <div class="language-selector" data-node-id="261:1321">
+            <p class="language-text">🇺🇸 EN-US</p>
+            <div class="expand-icon small" data-name="expand_more" data-node-id="261:1324">
+              <img alt="" src="/assets/expand-more.svg" />
+            </div>
+          </div>
+        </div>
+        
+        <div class="nav-actions" data-node-id="261:1327">
+          <div class="search-icon" data-name="search" data-node-id="261:1328">
+            <img alt="Search" src="/assets/search.svg" />
+          </div>
+          
+          <div class="login-section" data-node-id="261:1331">
+            <div class="login-link" data-node-id="261:1332">
+              <p class="login-text">Login/Sign Up</p>
+              <div class="arrow-icon" data-name="arrow_right_alt" data-node-id="261:1334">
+                <img alt="" src="/assets/arrow-right.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="hero-content" data-node-id="261:1337">
+      <div class="hero-title" data-node-id="261:2505">
+        <div class="title-text" data-node-id="261:2506">
+          <p>I want to <span class="ship-placeholder">ship</span> a package</p>
+        </div>
+        <div class="ship-animation" data-node-id="261:2507">
+          <div class="ship-dyn-text" data-node-id="300:1314">
+            <div class="ship-mask" data-name="Mask group" data-node-id="300:1221">
+              <div class="ship-frame" data-name="Ship Frame" data-node-id="300:1288">
+                <p class="ship-letter s" [class.visible]="shipState === 'S' || shipState === 'Sh' || shipState === 'Shi' || shipState === 'Ship'">S</p>
+                <p class="ship-letter h" [class.visible]="shipState === 'Sh' || shipState === 'Shi' || shipState === 'Ship'">h</p>
+                <p class="ship-letter i" [class.visible]="shipState === 'Shi' || shipState === 'Ship'">i</p>
+                <p class="ship-letter p" [class.visible]="shipState === 'Ship'">p</p>
+              </div>
+            </div>
+            <app-cursor class="ship-cursor"></app-cursor>
+          </div>
+        </div>
+      </div>
+      
+      <p class="hero-description" data-node-id="261:2516">
+        In iure quia eos earum modi vel quae maiores ea aspernatur asperiores quo Quis labore qui alias laudantium est voluptates sunt oluptate velit esse cillum dolore eu.
+      </p>
+      
+      <!-- Action Tiles -->
+      <div class="action-tiles" data-name="dynamic tiles v1" data-node-id="261:1342">
+        <div class="action-tile" (click)="onActionTileClick('shipping-supplies')" data-node-id="I261:1342;248:529">
+          <div class="tile-content" data-name="Contents" data-node-id="I261:1342;248:530">
+            <div class="tile-icon" data-name="ups-boxes-packaging" data-node-id="I261:1342;248:531">
+              <img alt="Packaging icon" src="/assets/ups-boxes-packaging.svg" />
+            </div>
+            
+            <div class="tile-text-section" data-node-id="I261:1342;248:532">
+              <div class="tile-info" data-node-id="I261:1342;248:533">
+                <div class="tile-text" data-node-id="I261:1342;248:534">
+                  <p class="tile-title">Order Shipping Supplies</p>
+                  <p class="tile-description">Et fugit quibusdam et numquam repellat qui soluta.</p>
+                </div>
+                <div class="chevron-icon" data-name="chevron_right" data-node-id="I261:1342;248:537">
+                  <img alt="" src="/assets/chevron-right.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="action-tile" (click)="onActionTileClick('help-support')" data-node-id="I261:1342;248:553">
+          <div class="tile-content" data-name="Contents" data-node-id="I261:1342;248:554">
+            <div class="tile-icon" data-name="ups-chat" data-node-id="I261:1342;248:555">
+              <img alt="Help icon" src="/assets/ups-videos.svg" />
+            </div>
+            
+            <div class="tile-text-section" data-node-id="I261:1342;248:556">
+              <div class="tile-info" data-node-id="I261:1342;248:557">
+                <div class="tile-text" data-node-id="I261:1342;248:558">
+                  <p class="tile-title">Help & Support</p>
+                  <p class="tile-description">Aut assumenda nulla ad maiores ipsa quo explicabo.</p>
+                </div>
+                <div class="chevron-icon" data-name="chevron_right" data-node-id="I261:1342;248:561">
+                  <img alt="" src="/assets/chevron-right.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="action-tile" (click)="onActionTileClick('save-shipping')" data-node-id="I261:1342;248:541">
+          <div class="tile-content" data-name="Contents" data-node-id="I261:1342;248:542">
+            <div class="tile-icon discount" data-name="Discount Shopping Bag" data-node-id="I261:1342;248:543">
+              <img alt="Discount icon" src="/assets/ups-ecommerce-shopping-bag.svg" />
+            </div>
+            
+            <div class="tile-text-section" data-node-id="I261:1342;248:544">
+              <div class="tile-info" data-node-id="I261:1342;248:545">
+                <div class="tile-text" data-node-id="I261:1342;248:546">
+                  <p class="tile-title">Save 10% on Shipping</p>
+                  <p class="tile-description">Eos assumenda aperiam et numquam necessitatibus qu.</p>
+                </div>
+                <div class="chevron-icon" data-name="chevron_right" data-node-id="I261:1342;248:549">
+                  <img alt="" src="/assets/chevron-right.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="action-tile" (click)="onActionTileClick('find-location')" data-node-id="I261:1342;248:565">
+          <div class="tile-content" data-name="Contents" data-node-id="I261:1342;248:566">
+            <div class="tile-icon" data-name="ups-location-map" data-node-id="I261:1342;248:567">
+              <img alt="Location icon" src="/assets/ups-package-costs-rates.svg" />
+            </div>
+            
+            <div class="tile-text-section" data-node-id="I261:1342;248:568">
+              <div class="tile-info" data-node-id="I261:1342;248:569">
+                <div class="tile-text" data-node-id="I261:1342;248:570">
+                  <p class="tile-title">Find a Location</p>
+                  <p class="tile-description">Et facere commodi aut debitis voluptatem et sint.</p>
+                </div>
+                <div class="chevron-icon" data-name="chevron_right" data-node-id="I261:1342;248:573">
+                  <img alt="" src="/assets/chevron-right.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- App Teaser Section -->
+    <div class="app-teaser" data-name="app teaser v2" data-node-id="261:1343">
+      <div class="teaser-content" data-name="Contents" data-node-id="I261:1343;250:747">
+        <!-- Teaser Navigation -->
+        <div class="teaser-nav" data-name="v2 app teaser nav" data-node-id="I261:1343;250:748">
+          <button class="teaser-nav-item" 
+                  [class.active]="activeNavItem === 'track-package'"
+                  (click)="onNavItemClick('track-package')" 
+                  data-node-id="I261:1343;250:748;223:2026">
+            <div class="nav-icon" data-name="icon=ups-follow-prompts-progress 1" data-node-id="I261:1343;250:748;223:2026;223:2006">
+              <img alt="Track package icon" src="/assets/ups-follow-prompts-progress.svg" />
+            </div>
+            <p class="nav-label">Track a Package</p>
+          </button>
+          
+          <div class="teaser-nav-item active" data-node-id="I261:1343;250:748;223:2057">
+            <div class="nav-icon" data-name="icon=ups-package-dimensions-weight 1" data-node-id="I261:1343;250:748;223:2057;223:2010">
+              <img alt="Quote ship icon" src="/assets/ups-package-dimensions-weight.svg" />
+            </div>
+            <p class="nav-label active">Quote & Ship</p>
+            <div class="nav-underline" data-name="underline" data-node-id="I261:1343;250:748;223:2057;223:1963"></div>
+          </div>
+          
+          <div class="teaser-nav-item" 
+               [class.active]="activeNavItem === 'billing'"
+               (click)="onNavItemClick('billing')" 
+               data-node-id="I261:1343;250:748;223:2072">
+            <div class="nav-icon" data-name="icon=ups-money-manage" data-node-id="I261:1343;250:748;223:2072;223:2006">
+              <img alt="Billing icon" src="/assets/ups-money-manage.svg" />
+            </div>
+            <p class="nav-label">Billing</p>
+          </div>
+        </div>
+        
+        <!-- Shipping Form -->
+        <div class="shipping-form" data-name="Tracking Form" data-node-id="I261:1343;250:749">
+          <!-- Quote Section -->
+          <div class="form-section" data-node-id="I261:1343;250:2114">
+            <div class="section-heading" data-name="Heading" data-node-id="I261:1343;250:2115">
+              <p class="section-title">Let's Get That Package Shipped!</p>
+            </div>
+            
+            <div class="quote-dropdown" data-name="quote dropdown" data-node-id="I261:1343;250:2117">
+              <div class="dropdown-content" data-node-id="I261:1343;250:2118">
+                <div class="dropdown-info" data-node-id="I261:1343;250:2120">
+                  <div class="dropdown-title" data-node-id="I261:1343;250:2121">
+                    <p>Shipping Quote</p>
+                  </div>
+                  <div class="dropdown-subtitle" data-node-id="I261:1343;250:2122">
+                    <p>March 17, 2024</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="dropdown-action" data-node-id="I261:1343;250:2123">
+                <div class="resume-quote" (click)="onResumeQuote()" data-node-id="I261:1343;250:2124">
+                  <p>Resume Quote</p>
+                </div>
+                <div class="dropdown-arrow" data-node-id="I261:1343;250:2125">
+                  <img alt="" src="/assets/expand-more.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- New Shipment Section -->
+          <div class="form-section" data-name="Shipping Form" data-node-id="I261:1343;250:1996">
+            <div class="section-heading" data-node-id="I261:1343;250:2062">
+              <p class="section-title">Start a New Shipment</p>
+            </div>
+            
+            <!-- Packaging Dropdown -->
+            <div class="packaging-dropdown" data-name="packaging dropdown" data-node-id="I261:1343;250:1997">
+              <div class="dropdown-content" data-node-id="I261:1343;250:1998">
+                <div class="package-icon" data-name="Illustrative Icons" data-node-id="I261:1343;250:1999">
+                  <img alt="Package icon" src="/assets/ups-boxes-packaging.svg" />
+                </div>
+                
+                <div class="dropdown-info" data-node-id="I261:1343;250:2000">
+                  <div class="dropdown-title" data-node-id="I261:1343;250:2001">
+                    <p>Your own Packaging</p>
+                  </div>
+                  <div class="dropdown-subtitle" data-node-id="I261:1343;250:2002">
+                    <p>Ship with packaging supplies of your choice.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="dropdown-arrow" data-name="expand_more" data-node-id="I261:1343;250:2003">
+                <img alt="" src="/assets/expand-more.svg" />
+              </div>
+            </div>
+            
+            <!-- Address Inputs -->
+            <div class="address-section" data-name="address" data-node-id="I261:1343;250:2006">
+              <div class="input-group" data-name=".TrackInput" data-node-id="I261:1343;250:2007">
+                <input 
+                  type="text" 
+                  [(ngModel)]="fromAddress" 
+                  placeholder="From Address or Zip Code *" 
+                  class="form-input"
+                  data-node-id="I261:1343;250:2007;21035:29059" />
+              </div>
+              
+              <div class="input-group" data-name=".TrackInput" data-node-id="I261:1343;250:2008">
+                <input 
+                  type="text" 
+                  [(ngModel)]="toAddress" 
+                  placeholder="To Address or Zip Code *" 
+                  class="form-input"
+                  data-node-id="I261:1343;250:2008;21035:29059" />
+              </div>
+            </div>
+            
+            <!-- Dimensions -->
+            <div class="dimensions-section" data-name="Dimensions" data-node-id="I261:1343;250:2009">
+              <div class="input-group" data-name=".TrackInput" data-node-id="I261:1343;250:2010">
+                <input 
+                  type="text" 
+                  [(ngModel)]="weight" 
+                  placeholder="Weight *" 
+                  class="form-input"
+                  data-node-id="I261:1343;250:2010;21035:29059" />
+              </div>
+              
+              <div class="input-group" data-name=".TrackInput" data-node-id="I261:1343;250:2011">
+                <input 
+                  type="text" 
+                  [(ngModel)]="length" 
+                  placeholder="Length (in)" 
+                  class="form-input"
+                  data-node-id="I261:1343;250:2011;21035:29059" />
+              </div>
+              
+              <div class="input-group" data-name=".TrackInput" data-node-id="I261:1343;250:2012">
+                <input 
+                  type="text" 
+                  [(ngModel)]="width" 
+                  placeholder="Width" 
+                  class="form-input"
+                  data-node-id="I261:1343;250:2012;21035:29059" />
+              </div>
+              
+              <div class="input-group" data-name=".TrackInput" data-node-id="I261:1343;250:2013">
+                <input 
+                  type="text" 
+                  [(ngModel)]="height" 
+                  placeholder="Height (in)" 
+                  class="form-input"
+                  data-node-id="I261:1343;250:2013;21035:29059" />
+              </div>
+            </div>
+            
+            <!-- Promo & Submit -->
+            <div class="promo-submit-section" data-name="Promo & Submit" data-node-id="I261:1343;250:2014">
+              <div class="promo-submit-row" data-node-id="I261:1343;250:2015">
+                <div class="input-group promo" data-name=".TrackInput" data-node-id="I261:1343;250:2016">
+                  <input 
+                    type="text" 
+                    [(ngModel)]="promoCode" 
+                    placeholder="Promo Code" 
+                    class="form-input"
+                    data-node-id="I261:1343;250:2016;21035:29059" />
+                </div>
+                
+                <button class="get-rates-btn" (click)="onGetShippingRates()" data-name="Action: Button" data-node-id="I261:1343;443:2065">
+                  <div class="btn-content" data-name="Text Frame" data-node-id="I261:1343;443:2065;443:1980">
+                    <div class="btn-text" data-node-id="I261:1343;443:2065;443:1981">
+                      <p>Get Shipping Rates</p>
+                    </div>
+                    <div class="btn-icon" data-name="Icon Frame" data-node-id="I261:1343;443:2065;443:1982">
+                      <img alt="" src="/assets/chevron-right.svg" />
+                    </div>
+                  </div>
+                </button>
+              </div>
+              
+              <div class="help-section" data-name=".content-item" data-node-id="I261:1343;250:2018">
+                <p class="help-text">Help</p>
+                <div class="help-icon" data-name="help_20px" data-node-id="I261:1343;250:2018;3834:19872">
+                  <img alt="Help" src="/assets/help-icon.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Secondary Content Section -->
+  <div class="secondary-content" data-node-id="300:1711">
+    <div class="content-card large" data-name="secondary content" data-node-id="300:1712">
+      <div class="card-shadow" data-node-id="300:1714"></div>
+      <div class="card-background" data-node-id="300:1715"></div>
+      
+      <div class="card-content" data-node-id="300:1716">
+        <div class="content-text" data-node-id="300:1717">
+          <div class="content-title" data-node-id="300:1718"></div>
+          <div class="content-subtitle" data-node-id="300:1719"></div>
+        </div>
+        
+        <div class="content-description" data-node-id="300:1720">
+          <div class="description-line" data-node-id="300:1721"></div>
+          <div class="description-line" data-node-id="300:1722"></div>
+          <div class="description-line" data-node-id="300:1723"></div>
+          <div class="description-line short" data-node-id="300:1724"></div>
+        </div>
+        
+        <div class="content-button" data-node-id="300:1725"></div>
+      </div>
+      
+      <div class="content-image" data-name="Image" data-node-id="300:1726">
+        <div class="image-placeholder" data-name="Placeholder" data-node-id="I300:1726;22105:27373">
+          <img alt="Content placeholder" src="/assets/placeholder.svg" />
+        </div>
+      </div>
+    </div>
+    
+    <!-- Three Column Content -->
+    <div class="three-column-content" data-node-id="300:1727">
+      <div class="content-column" data-node-id="300:1728">
+        <div class="column-content" data-node-id="300:1729">
+          <div class="column-image" data-name="Image" data-node-id="300:1730">
+            <img alt="Content placeholder" src="/assets/placeholder.svg" />
+          </div>
+          
+          <div class="column-text" data-node-id="300:1731">
+            <div class="column-title" data-node-id="300:1732"></div>
+            <div class="column-subtitle" data-node-id="300:1733"></div>
+          </div>
+          
+          <div class="column-description" data-node-id="300:1734">
+            <div class="description-line" data-node-id="300:1735"></div>
+            <div class="description-line" data-node-id="300:1736"></div>
+            <div class="description-line" data-node-id="300:1737"></div>
+            <div class="description-line short" data-node-id="300:1738"></div>
+          </div>
+          
+          <div class="column-button" data-node-id="300:1739"></div>
+        </div>
+      </div>
+      
+      <div class="content-column center" data-node-id="300:1740">
+        <div class="column-image large" data-name="Image" data-node-id="300:1770">
+          <img alt="Content placeholder" src="/assets/placeholder.svg" />
+        </div>
+        
+        <div class="column-text" data-node-id="300:1742">
+          <div class="column-title" data-node-id="300:1743"></div>
+          <div class="column-subtitle" data-node-id="300:1744"></div>
+        </div>
+        
+        <div class="column-description" data-node-id="300:1745">
+          <div class="description-line" data-node-id="300:1746"></div>
+          <div class="description-line" data-node-id="300:1747"></div>
+          <div class="description-line" data-node-id="300:1748"></div>
+          <div class="description-line short" data-node-id="300:1749"></div>
+        </div>
+        
+        <div class="column-button" data-node-id="300:1750"></div>
+      </div>
+      
+      <div class="content-column" data-node-id="300:1751">
+        <div class="column-image" data-name="Image" data-node-id="300:1752">
+          <img alt="Content placeholder" src="/assets/placeholder.svg" />
+        </div>
+        
+        <div class="column-text" data-node-id="300:1753">
+          <div class="column-title" data-node-id="300:1754"></div>
+          <div class="column-subtitle" data-node-id="300:1755"></div>
+        </div>
+        
+        <div class="column-description" data-node-id="300:1756">
+          <div class="description-line" data-node-id="300:1757"></div>
+          <div class="description-line" data-node-id="300:1758"></div>
+          <div class="description-line" data-node-id="300:1759"></div>
+          <div class="description-line short" data-node-id="300:1760"></div>
+        </div>
+        
+        <div class="column-button" data-node-id="300:1761"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="footer" data-name="footer" data-node-id="261:1411">
+    <!-- Footer Arch -->
+    <div class="footer-arch" data-name=".Image/ArchDefault" data-node-id="261:1507">
+      <img alt="Footer arch decoration" src="/assets/footer-arch.svg" />
+    </div>
+    
+    <!-- Footer Content -->
+    <div class="footer-content" data-node-id="261:1413">
+      <div class="footer-links" data-node-id="261:1414">
+        <!-- This Site -->
+        <div class="footer-section" data-node-id="261:1415">
+          <div class="footer-group" data-name="This Site" data-node-id="261:1416">
+            <p class="footer-title">This Site</p>
+            <p class="footer-link">Shipping</p>
+            <p class="footer-link">Tracking</p>
+            <p class="footer-link">Products & Services</p>
+          </div>
+        </div>
+        
+        <!-- Other UPS Sites -->
+        <div class="footer-section" data-node-id="261:1421">
+          <div class="footer-group" data-name="This Site" data-node-id="261:1422">
+            <p class="footer-title">Other UPS Sites</p>
+            
+            <div class="footer-link-with-icon" data-node-id="261:1424">
+              <p class="footer-link">About UPS</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1426">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="footer-link-with-icon" data-node-id="261:1427">
+              <p class="footer-link">Supply Chain Solutions</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1429">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="footer-link-with-icon" data-node-id="261:1430">
+              <p class="footer-link">The UPS Store</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1432">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="footer-link-with-icon" data-node-id="261:1433">
+              <p class="footer-link">UPS Jobs</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1435">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Support -->
+        <div class="footer-section" data-node-id="261:1436">
+          <div class="footer-group" data-name="This Site" data-node-id="261:1437">
+            <p class="footer-title">Support</p>
+            <p class="footer-link">Glossary of Terms</p>
+            <p class="footer-link">Contact Us</p>
+            <p class="footer-link">Manage Your Profile</p>
+            <p class="footer-link">Communication Preferences</p>
+            <p class="footer-link">Help & Support</p>
+          </div>
+        </div>
+        
+        <!-- Connect with Us -->
+        <div class="footer-section social" data-node-id="261:1447">
+          <div class="footer-group" data-name="This Site" data-node-id="261:1448">
+            <p class="footer-title">Connect with Us</p>
+            
+            <div class="social-link" data-node-id="261:1450">
+              <div class="social-icon" data-node-id="261:1451">
+                <img alt="Facebook" src="/assets/facebook.svg" />
+              </div>
+              <p class="footer-link">Facebook</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1456">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="social-link" data-node-id="261:1457">
+              <div class="social-icon" data-node-id="261:1458">
+                <img alt="Twitter" src="/assets/twitter.svg" />
+              </div>
+              <p class="footer-link">Twitter</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1465">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="social-link" data-node-id="261:1466">
+              <div class="social-icon" data-node-id="261:1467">
+                <img alt="Instagram" src="/assets/instagram.svg" />
+              </div>
+              <p class="footer-link">Instagram</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1474">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="social-link" data-node-id="261:1475">
+              <div class="social-icon" data-node-id="261:1476">
+                <img alt="LinkedIn" src="/assets/linkedin.svg" />
+              </div>
+              <p class="footer-link">LinkedIn</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1483">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+            
+            <div class="social-link" data-node-id="261:1484">
+              <div class="social-icon" data-node-id="261:1485">
+                <img alt="YouTube" src="/assets/youtube.svg" />
+              </div>
+              <p class="footer-link">YouTube</p>
+              <div class="external-icon" data-name="open_in_new" data-node-id="261:1492">
+                <img alt="" src="/assets/open-in-new.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer Bottom -->
+    <div class="footer-bottom" data-node-id="261:1493">
+      <div class="footer-bottom-content" data-node-id="261:1494">
+        <div class="footer-divider" data-node-id="261:1495"></div>
+        
+        <div class="footer-legal" data-node-id="261:1496">
+          <div class="legal-links" data-node-id="261:1497">
+            <p class="legal-link">Global Home</p>
+            <p class="legal-link">Protect against Fraud</p>
+            <p class="legal-link">Terms & Conditions</p>
+            <p class="legal-link">Website Terms of Use</p>
+            <p class="legal-link">Your California Privacy Rights</p>
+            <p class="legal-link">Privacy Notice</p>
+            <p class="legal-link">Cookie Settings</p>
+            <p class="legal-link">Do Not Sell My Info</p>
+          </div>
+          
+          <p class="copyright">Copyright ©1994 - 2022 United Parcel Service of America, Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

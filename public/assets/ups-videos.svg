@@ -1,0 +1,33 @@
+<svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="videoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C2C2C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A1A1A;stop-opacity:1" />
+    </linearGradient>
+    <filter id="videoShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Video Player Background -->
+  <rect x="4" y="8" width="40" height="30" fill="url(#videoGradient)" rx="6" filter="url(#videoShadow)"/>
+  
+  <!-- Video Screen -->
+  <rect x="6" y="10" width="36" height="22" fill="#000" rx="4"/>
+  
+  <!-- UPS Truck in Video -->
+  <rect x="18" y="16" width="12" height="8" fill="#8B4513" rx="2"/>
+  <rect x="20" y="18" width="8" height="4" fill="#FFC400" rx="1"/>
+  <text x="24" y="21" text-anchor="middle" fill="#8B4513" font-size="2" font-weight="bold">UPS</text>
+  
+  <!-- Play Button -->
+  <circle cx="24" cy="21" r="6" fill="#FFC400" opacity="0.9"/>
+  <path d="M21 18 L21 24 L28 21 Z" fill="#8B4513"/>
+  
+  <!-- Video Controls -->
+  <rect x="6" y="34" width="36" height="4" fill="#333" rx="2"/>
+  
+  <!-- UPS Video Label -->
+  <rect x="12" y="40" width="24" height="6" fill="#8B4513" rx="3"/>
+  <text x="24" y="44" text-anchor="middle" fill="#FFC400" font-size="4" font-weight="bold">UPS TUTORIALS</text>
+</svg>

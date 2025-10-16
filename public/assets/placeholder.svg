@@ -1,0 +1,5 @@
+<svg width="77" height="66" xmlns="http://www.w3.org/2000/svg">
+  <rect width="70" height="50" x="3" y="8" fill="#E5E5E5" rx="8"/>
+  <rect width="60" height="40" x="8" y="13" fill="#FFF" rx="6"/>
+  <text x="38" y="35" text-anchor="middle" fill="#999" font-size="12">IMAGE</text>
+</svg>
