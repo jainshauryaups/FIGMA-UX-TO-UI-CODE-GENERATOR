@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "generate": "node pipeline/generate-with-preview.mjs",
+    "sync-css": "node pipeline/sync-brand-css.mjs",
     "figma:fetch": "node pipeline/fetch-figma-json.mjs",
     "figma:automate": "node pipeline/automate-figma-llm.mjs",
     "figma:test": "node pipeline/servers/test-granite-api.mjs",

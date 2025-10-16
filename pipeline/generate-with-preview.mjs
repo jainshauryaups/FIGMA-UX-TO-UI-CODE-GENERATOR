@@ -36,7 +36,7 @@ const config = {
   modelId: 'ibm/granite-3-8b-instruct',
   previewDir: path.join(__dirname, '.preview'),
   componentDir: path.join(__dirname, '..', 'generated-app', 'src', 'app', 'components'),
-  stylesPath: path.join(__dirname, '..', 'generated-app', 'src', 'styles.scss'),
+  stylesPath: path.join(__dirname, 'brand-css', 'ups-brand.scss'),
   routesPath: path.join(__dirname, '..', 'generated-app', 'src', 'app', 'app.routes.ts'),
 };
 
