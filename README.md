@@ -64,7 +64,7 @@
 ```mermaid
 graph TB
     subgraph "Input Layer"
-        A[Figma Design API]
+        A[Figma MCP Server]
         B[UPS Brand CSS System]
     end
     
@@ -106,33 +106,33 @@ graph TB
 ```mermaid
 flowchart TB
     subgraph EXT["External Services"]
-        FIGMA_API["Figma REST API<br/>api.figma.com<br/>Personal Token Auth"]
-        IBM_IAM["IBM Cloud IAM<br/>Token Management<br/>OAuth 2.0"]
-        IBM_AI["IBM Granite AI<br/>us-south.ml.cloud.ibm.com<br/>Enterprise LLM"]
+        FIGMA_API["Figma MCP Server"]
+        IBM_IAM["IBM Cloud IAM<br/>Token Management"]
+        IBM_AI["IBM Granite AI<br/>Code Generation LLM"]
     end
     
     subgraph INPUT["Data Acquisition Layer"]
-        FETCH["Figma Data Fetcher<br/>GET /v1/files/{key}/nodes"]
-        CSS_LOAD["Brand CSS Loader<br/>53 Approved Classes"]
+        FETCH["Figma MCP Data"]
+        CSS_LOAD["Brand CSS Loader"]
     end
     
     subgraph PROC["AI Processing Layer"]
-        AUTH["Token Manager<br/>1-hour Cache"]
-        PROMPT["Prompt Engineer<br/>5000-char Context"]
+        AUTH["Token Manager"]
+        PROMPT["Prompt Engineer"]
         GEN["Code Generator<br/>Temp: 0.1 | Tokens: 6000"]
     end
     
     subgraph VALID["Validation & QA Layer"]
         PARSE["Code Parser<br/>Regex Extraction"]
-        AUTO["TypeScript Auto-Fix<br/>100% Success Rate"]
-        CSSV["CSS Validator<br/>93% Compliance"]
+        AUTO["TypeScript Auto-Fix"]
+        CSSV["CSS Validator"]
     end
     
     subgraph OUT["Output & Preview Layer"]
         FILES["File Generator<br/>TS + HTML + SCSS"]
-        ROUTES["Route Manager<br/>Auto-update app.routes.ts"]
-        SERVER["Dev Server Monitor<br/>localhost:4200"]
-        BROWSER["Browser Launcher<br/>Chrome Auto-open"]
+        ROUTES["Route Manager"]
+        SERVER["Dev Server Monitor"]
+        BROWSER["Browser Launcher"]
     end
     
     subgraph QA["Quality Control"]

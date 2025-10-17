@@ -20,6 +20,7 @@ import subprocess
 import time
 import webbrowser
 import shutil
+import stat
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 import requests
@@ -464,6 +465,39 @@ def update_routes(component_name: str):
 # ============================================================================
 # STEP 10: Copy to Generated App
 # ============================================================================
+def safe_remove_tree(path: Path, max_retries: int = 3):
+    """Safely remove directory tree, handling Windows file locks"""
+    import stat
+    
+    def handle_remove_readonly(func, path, exc):
+        """Error handler for Windows readonly files"""
+        if not os.access(path, os.W_OK):
+            os.chmod(path, stat.S_IWUSR)
+            func(path)
+        else:
+            raise
+    
+    for attempt in range(max_retries):
+        try:
+            if path.exists():
+                shutil.rmtree(path, onerror=handle_remove_readonly)
+            return True
+        except PermissionError:
+            if attempt < max_retries - 1:
+                time.sleep(0.5)  # Wait for file locks to release
+                continue
+            else:
+                # Last resort: rename and create new
+                backup_path = path.parent / f'{path.name}_old_{int(time.time())}'
+                try:
+                    path.rename(backup_path)
+                    log(f'⚠️  Could not delete {path.name}, renamed to {backup_path.name}', 'yellow')
+                    return True
+                except:
+                    log(f'⚠️  Could not remove {path.name}, will overwrite files', 'yellow')
+                    return False
+    return False
+
 def copy_to_generated_app(component_name: str) -> Path:
     """Copy component from preview to generated-app"""
     log('📁 Step 10: Copying to generated-app...', 'blue')
@@ -471,11 +505,22 @@ def copy_to_generated_app(component_name: str) -> Path:
     src_path = Config.PREVIEW_DIR / component_name
     dest_path = Config.COMPONENT_DIR / component_name
     
-    # Remove existing if present
+    # Remove existing if present (Windows-safe)
     if dest_path.exists():
-        shutil.rmtree(dest_path)
+        safe_remove_tree(dest_path)
     
-    shutil.copytree(src_path, dest_path)
+    # Ensure destination doesn't exist before copying
+    if dest_path.exists():
+        # Overwrite individual files if can't delete folder
+        for src_file in src_path.rglob('*'):
+            if src_file.is_file():
+                rel_path = src_file.relative_to(src_path)
+                dest_file = dest_path / rel_path
+                dest_file.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(src_file, dest_file)
+    else:
+        shutil.copytree(src_path, dest_path)
+    
     log(f'✓ Copied to: generated-app/src/app/components/{component_name}/', 'green')
     return dest_path
 
@@ -574,11 +619,13 @@ def cleanup_browser_preview(component_name: str):
     """Cleanup files on reject"""
     log('🧹 Cleaning up rejected component...', 'yellow')
     
-    # Remove from generated-app
+    # Remove from generated-app (Windows-safe)
     dest_path = Config.COMPONENT_DIR / component_name
     if dest_path.exists():
-        shutil.rmtree(dest_path)
-        log(f'✓ Removed from generated-app: {component_name}', 'green')
+        if safe_remove_tree(dest_path):
+            log(f'✓ Removed from generated-app: {component_name}', 'green')
+        else:
+            log(f'⚠️  Could not fully remove {component_name}, but routes will be reverted', 'yellow')
     
     # Revert routes
     routes_content = Config.ROUTES_PATH.read_text(encoding='utf-8')

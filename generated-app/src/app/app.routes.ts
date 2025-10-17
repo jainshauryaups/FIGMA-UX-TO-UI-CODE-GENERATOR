@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
+import { DemoTestComponent } from './components/demo-test/demo-test.component';
 import { DemoV2Component } from './components/demo-v2/demo-v2.component';
-import { DemoComponent } from './components/demo/demo.component';
 import { HomePageTestComponent } from './components/home-page-test/home-page-test.component';
 import { TrackingPageComponent } from './components/tracking-page/tracking-page.component';
 import { QuoteShipPageComponent } from './components/quote-ship-page/quote-ship-page.component';
@@ -8,9 +8,9 @@ import { ShippingTrackerComponent } from './components/shipping-tracker.componen
 import { TestComponent } from './components/test/test.component';
 
 export const routes: Routes = [
-  { path: 'demo-v2', component: DemoV2Component },
-{ path: 'demo', component: DemoComponent },
-  { path: 'home-page-test', component: HomePageTestComponent },
+  { path: 'demo-test', component: DemoTestComponent },
+{ path: 'demo-v2', component: DemoV2Component },
+{ path: 'home-page-test', component: HomePageTestComponent },
   { path: '', component: TrackingPageComponent },
   { path: 'track', component: TrackingPageComponent },
   { path: 'quote-ship', component: QuoteShipPageComponent },
