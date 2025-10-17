@@ -237,8 +237,8 @@ Developer Workflow                Pipeline Response              Final Output
       │                                  │                           │
       │  ⏱️ Processing Time: 11-14 sec    ├─ Figma Fetch ───────────┐ │
       │                                  ├─ AI Generation ─────────┤ │
-      │                                  ├─ CSS Validation ────────┤ │ 
-      │                                  ├─ TypeScript Auto-fix ───┤ │
+      │                                  ├─ TypeScript Auto-fix ───┤ │ 
+      │                                  ├─ CSS Validation ────────┤ │
       │                                  ├─ Browser Preview ───────┤ │
       │                                  │                        ─┘ │
       │                                  │                           │
