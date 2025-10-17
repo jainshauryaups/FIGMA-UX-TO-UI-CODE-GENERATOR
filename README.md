@@ -115,6 +115,9 @@ graph TB
     FILES --> PREVIEW
 ```
 
+### Pipeline Execution Stages
+
+```
    ┌─── STAGE 1: DATA ACQUISITION (2 seconds) ─────────────────────────────┐
    │  🌐 Figma REST API Call                                               │
    │    GET /v1/files/{fileKey}/nodes?ids={nodeId}                         │
@@ -261,6 +264,10 @@ Developer Workflow                Pipeline Response              Final Output
       │  git push origin main            │                 Deployed! │
       ▼                                  ▼                           ▼
 ```
+
+---
+
+## 📊 POC Results & Metrics
 
 ### 🔄 Complete Data Flow Pipeline
 
