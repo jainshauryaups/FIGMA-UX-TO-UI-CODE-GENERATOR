@@ -62,12 +62,12 @@
 
 ```mermaid
 graph LR
-    A[🎨 Figma Design<br/>File + Node ID] --> B[🐍 Python Pipeline<br/>743 lines]
-    C[🎨 UPS Brand CSS<br/>53 Classes] --> B
-    B --> D[🤖 IBM Granite AI<br/>3-8B-Instruct]
-    D --> E[✅ Validation<br/>TypeScript + CSS]
-    E --> F[⚡ Angular 20.3.0<br/>Component Output]
-    F --> G[🌐 Browser Preview<br/>Live Development]
+    A[Figma Design] --> B[Python Pipeline]
+    C[UPS Brand CSS] --> B
+    B --> D[IBM Granite AI]
+    D --> E[Validation]
+    E --> F[Angular 20.3.0]
+    F --> G[Browser Preview]
     
     style A fill:#e1f5fe
     style C fill:#fff3e0
@@ -82,26 +82,26 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph INPUT[" INPUT LAYER "]
-        FIGMA[Figma Design Data<br/>File Key + Node ID<br/>~1.05 MB JSON]
-        BRAND[UPS Brand System<br/>53 CSS Classes<br/>Color & Typography Rules]
+    subgraph Input
+        FIGMA[Figma Design Data]
+        BRAND[UPS Brand System]
     end
     
-    subgraph PIPELINE[" PROCESSING LAYER "]
-        PYTHON[Python Orchestrator<br/>generate_pipeline.py<br/>743 lines of code]
-        PROMPT[Prompt Engineering<br/>2,847 chars guidelines<br/>15,000 chars design data]
-        AI[IBM Granite LLM<br/>granite-3.0-8b-instruct<br/>Temperature: 0.1]
+    subgraph Processing
+        PYTHON[Python Orchestrator]
+        PROMPT[Prompt Engineering]
+        AI[IBM Granite LLM]
     end
     
-    subgraph VALIDATE[" VALIDATION LAYER "]
-        AUTOFIX[TypeScript Auto-fix<br/>Property Detection<br/>Import Completion<br/>100% Success Rate]
-        CSSCHECK[CSS Brand Check<br/>53 Approved Classes<br/>93% Compliance]
+    subgraph Validation
+        AUTOFIX[TypeScript Auto-fix]
+        CSSCHECK[CSS Brand Check]
     end
     
-    subgraph OUTPUT[" OUTPUT LAYER "]
-        FILES[File Generation<br/>component.ts<br/>component.html<br/>component.scss]
-        GIT[Git Automation<br/>Feature Branch<br/>Auto Commit]
-        PREVIEW[Browser Preview<br/>ng serve<br/>Auto Navigate]
+    subgraph Output
+        FILES[File Generation]
+        GIT[Git Automation]
+        PREVIEW[Browser Preview]
     end
     
     FIGMA --> PYTHON
@@ -113,11 +113,6 @@ graph TB
     CSSCHECK --> FILES
     FILES --> GIT
     FILES --> PREVIEW
-    
-    style INPUT fill:#e3f2fd
-    style PIPELINE fill:#f3e5f5
-    style VALIDATE fill:#e8f5e8
-    style OUTPUT fill:#fff3e0
 ```
 
    ┌─── STAGE 1: DATA ACQUISITION (2 seconds) ─────────────────────────────┐
