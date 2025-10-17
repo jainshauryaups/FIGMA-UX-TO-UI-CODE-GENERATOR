@@ -117,152 +117,130 @@ graph TB
 
 ### Pipeline Execution Stages
 
-```
-   ┌─── STAGE 1: DATA ACQUISITION (2 seconds) ─────────────────────────────┐
-   │  🌐 Figma REST API Call                                               │
-   │    GET /v1/files/{fileKey}/nodes?ids={nodeId}                         │
-   │    ✓ SSL/TLS Authentication: X-Figma-Token                            │
-   │    ✓ Response: Complete design node JSON                              │
-   │                                                                       │
-   │  🎨 UPS Brand CSS Loading                                             │
-   │    ✓ Parse: pipeline/brand-css/ups-brand.scss (178 lines)            │
-   │    ✓ Extract: 53 approved CSS class names                             │
-   │    ✓ Load: Color variables & typography rules                         │
-   └───────────────────────────┬───────────────────────────────────────────┘
-                              │
-   ┌─── STAGE 2: AI AUTHENTICATION (1 second) ─────────────────────────────┐
-   │  🔐 IBM Cloud IAM Token Exchange                                       │
-   │    POST https://iam.cloud.ibm.com/identity/token                      │
-   │    ✓ Grant Type: API Key                                              │
-   │    ✓ Token Cache: 1 hour TTL (automatic refresh)                      │
-   │    ✓ Enterprise Security: OAuth 2.0                                   │
-   └───────────────────────────┬───────────────────────────────────────────┘
-                              │
-   ┌─── STAGE 3: PROMPT ENGINEERING ───────────────────────────────────────┐
-   │  📝 Enhanced Strict Prompt Construction                                │
-   │    ✓ Figma JSON (truncated to 5000 chars)                            │
-   │    ✓ Whitelist: 53 approved CSS classes (explicit list)              │
-   │    ✓ Blacklist: Tailwind, Bootstrap (training bias prevention)       │
-   │    ✓ Angular 20+ standalone architecture rules                        │
-   │    ✓ TypeScript import constraints & best practices                   │
-   │    ✓ Inline style fallback instructions                               │
-   └───────────────────────────┬───────────────────────────────────────────┘
-                              │
-   ┌─── STAGE 4: AI CODE GENERATION (5-8 seconds) ─────────────────────────┐
-   │  🤖 IBM Granite 3-8B-Instruct LLM                                     │
-   │    POST https://us-south.ml.cloud.ibm.com/ml/v1/text/chat            │
-   │    ✓ Model: ibm/granite-3-8b-instruct (Enterprise grade)             │
-   │    ✓ Temperature: 0.1 (deterministic, reproducible output)           │
-   │    ✓ Max Tokens: 6000 (comprehensive component generation)            │
-   │    ✓ Output: TypeScript + HTML + SCSS code blocks                     │
-   └───────────────────────────┬───────────────────────────────────────────┘
-                              │
-   ┌─── STAGE 5: INTELLIGENT POST-PROCESSING ──────────────────────────────┐
-   │  🔧 Code Parsing & Auto-Fix                                           │
-   │    ✓ Regex Extract: ```typescript, ```html, ```scss blocks           │
-   │    ✓ Property Scan: (click)="prop", *ngIf="prop", {{prop}}           │
-   │    ✓ Type Inference: Boolean for toggles, string for others          │
-   │    ✓ Auto-Injection: Missing properties with correct types            │
-   │    ✓ Success Rate: 100% property auto-fixing                          │
-   │                                                                       │
-   │  ✅ Strict CSS Validation                                             │
-   │    ✓ Extract: All class="..." attributes from HTML                    │
-   │    ✓ Validate: Against 53 approved UPS classes only                   │
-   │    ✓ Detect: Unauthorized classes (Tailwind/Bootstrap)                │
-   │    ✓ Report: Violations with specific suggestions                      │
-   │    ✓ Block: Non-compliant code from reaching production               │
-   │    ✓ Achievement: 93% compliance rate in testing                      │
-   └───────────────────────────┬───────────────────────────────────────────┘
-                              │
-   ┌─── STAGE 6: PREVIEW & APPROVAL WORKFLOW ──────────────────────────────┐
-   │  👁️ Interactive Developer Preview                                      │
-   │    ✓ Save to: pipeline/.preview/{component-name}/                     │
-   │    ✓ Copy to: generated-app/src/app/components/                       │
-   │    ✓ Auto-update: app.routes.ts (import + route injection)            │
-   │    ✓ Server check: localhost:4200 health monitoring                   │
-   │    ✓ Auto-start: New PowerShell window with npm start                 │
-   │    ✓ Browser launch: Chrome → http://localhost:4200/component         │
-   │                                                                       │
-   │  🎯 Quality Control Gate                                              │
-   │    ✓ Display: CSS validation results & file locations                 │
-   │    ✓ Options: [A] Accept | [R] Reject | [G] Regenerate               │
-   │    ✓ Accept: Keep files, update routes, ready for git                 │
-   │    ✓ Reject: Delete files, revert routes, cleanup                     │
-   │    ✓ Regenerate: New LLM call with fresh generation                   │
-   └───────────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-╭─────────────────────────────────────────────────────────────────────────────╮
-│ 🌐 EXTERNAL SERVICES INTEGRATION                                           │
-╰─────────────────────────────────────────────────────────────────────────────╯
-┌───────────────────────┐ ┌──────────────────────┐ ┌─────────────────────────┐
-│    📐 Figma API       │ │   🤖 IBM Watson AI   │ │   🔐 IBM IAM Service    │
-│                       │ │                      │ │                         │
-│ • api.figma.com       │ │ • watson.ai          │ │ • iam.cloud.ibm.com     │
-│ • HTTPS/TLS (443)     │ │ • us-south region    │ │ • OAuth 2.0             │
-│ • Personal Token      │ │ • Granite 3-8B       │ │ • API Key Grant         │
-│ • Rate: 1000/hr       │ │ • Enterprise LLM     │ │ • Token Caching         │
-└───────────────────────┘ └──────────────────────┘ └─────────────────────────┘
-                              │
-                              ▼
-╭─────────────────────────────────────────────────────────────────────────────╮
-│ ⚡ OUTPUT LAYER: Angular 20 Production Application                          │
-│ (generated-app/ - Enterprise-ready codebase)                               │
-╰─────────────────────────────────────────────────────────────────────────────╯
+The pipeline executes in 6 distinct stages with a total execution time of **11-14 seconds**:
 
+| Stage | Duration | Component | Description |
+|-------|----------|-----------|-------------|
+| **1️⃣ Data Acquisition** | ~2s | 🌐 Figma API + 🎨 UPS CSS | Fetch design JSON via REST API • Parse 53 approved CSS classes |
+| **2️⃣ Authentication** | ~1s | 🔐 IBM IAM | OAuth 2.0 token exchange • 1-hour cache |
+| **3️⃣ Prompt Engineering** | <1s | 📝 Prompt Builder | Construct 5000-char prompt • Enforce brand rules |
+| **4️⃣ AI Generation** | 5-8s | 🤖 IBM Granite 3-8B | Generate TypeScript + HTML + SCSS code |
+| **5️⃣ Post-Processing** | <1s | 🔧 Auto-Fix + ✅ Validation | Fix TypeScript properties • Validate CSS compliance |
+| **6️⃣ Preview & Approval** | User | 👁️ Browser + 🎯 QA Gate | Interactive preview • Accept/Reject/Regenerate |
+
+#### Stage Details
+
+**STAGE 1: Data Acquisition**
+- 🌐 **Figma REST API**: `GET /v1/files/{fileKey}/nodes?ids={nodeId}`
+  - Authentication: X-Figma-Token header
+  - Response: Complete design node JSON
+- 🎨 **UPS Brand CSS**: Parse `pipeline/brand-css/ups-brand.scss`
+  - Extract 53 approved CSS class names
+  - Load color variables & typography rules
+
+**STAGE 2: AI Authentication**
+- 🔐 **IBM Cloud IAM**: `POST https://iam.cloud.ibm.com/identity/token`
+  - Grant Type: API Key
+  - Token Cache: 1 hour TTL (automatic refresh)
+  - Security: Enterprise OAuth 2.0
+
+**STAGE 3: Prompt Engineering**
+- 📝 **Strict Prompt Construction**:
+  - ✅ Figma JSON (truncated to 5000 chars)
+  - ✅ Whitelist: 53 approved CSS classes (explicit list)
+  - ✅ Blacklist: Tailwind, Bootstrap (training bias prevention)
+  - ✅ Angular 20+ standalone architecture rules
+  - ✅ TypeScript import constraints & best practices
+
+**STAGE 4: AI Code Generation**
+- 🤖 **IBM Granite 3-8B-Instruct LLM**:
+  - Endpoint: `https://us-south.ml.cloud.ibm.com/ml/v1/text/chat`
+  - Model: `ibm/granite-3-8b-instruct` (Enterprise grade)
+  - Temperature: 0.1 (deterministic output)
+  - Max Tokens: 6000
+  - Output: Complete Angular component files
+
+**STAGE 5: Intelligent Post-Processing**
+- 🔧 **TypeScript Auto-Fix**:
+  - Extract code blocks via regex
+  - Scan for missing properties: `(click)="prop"`, `*ngIf="prop"`, `{{prop}}`
+  - Infer types: Boolean for toggles, string for others
+  - Auto-inject missing properties (100% success rate)
+- ✅ **CSS Brand Validation**:
+  - Extract all `class="..."` attributes
+  - Validate against 53 approved UPS classes
+  - Detect unauthorized classes (Tailwind/Bootstrap)
+  - Report violations with suggestions
+  - Achievement: 93% compliance rate
+
+**STAGE 6: Preview & Approval Workflow**
+- 👁️ **Interactive Developer Preview**:
+  - Save to: `pipeline/.preview/{component-name}/`
+  - Copy to: `generated-app/src/app/components/`
+  - Auto-update: `app.routes.ts` (import + route injection)
+  - Health check: localhost:4200 monitoring
+  - Auto-start: Dev server in new PowerShell window
+  - Browser launch: Chrome → `http://localhost:4200/component`
+- 🎯 **Quality Control Gate**:
+  - **[A] Accept**: Keep files, update routes, ready for git commit
+  - **[R] Reject**: Delete files, revert routes, complete cleanup
+  - **[G] Regenerate**: New LLM call with fresh generation
+
+---
+
+### External Services Integration
+
+| Service | Purpose | Endpoint | Authentication |
+|---------|---------|----------|----------------|
+| 📐 **Figma API** | Design data source | `api.figma.com` | Personal Access Token |
+| 🤖 **IBM Granite AI** | Code generation | `us-south.ml.cloud.ibm.com` | OAuth 2.0 Bearer Token |
+| 🔐 **IBM IAM** | Token management | `iam.cloud.ibm.com` | API Key Grant |
+
+---
+
+### Output Structure
+
+```
 generated-app/
 ├── src/app/
-│   ├── components/ ────────────────────── 🎯 Generated Components
-│   │   ├── track-page/                    ✅ Production Example
-│   │   │   ├── track-page.component.ts    (68 lines, fully typed)
-│   │   │   ├── track-page.component.html  (42 lines, UPS CSS only)
-│   │   │   └── track-page.component.scss  (12 lines, minimal)
-│   │   ├── demo-component/ ────────────── 🎯 POC Demo (93% CSS compliant)
-│   │   └── shipping-tracker/ ──────────── 🔄 Testing Component
-│   ├── app.routes.ts ─────────────────── 🛣️ Auto-updated routing
-│   └── app.component.ts ──────────────── 📱 Main application
-├── src/styles.scss ───────────────────── 🎨 UPS Brand CSS (protected)
-├── angular.json ──────────────────────── ⚙️ Angular configuration
-└── package.json ──────────────────────── 📦 Dependencies
+│   ├── components/                   🎯 Generated Components
+│   │   ├── track-page/              ✅ Production Example
+│   │   │   ├── .component.ts        (68 lines, fully typed)
+│   │   │   ├── .component.html      (42 lines, UPS CSS only)
+│   │   │   └── .component.scss      (12 lines, minimal)
+│   │   ├── demo-component/          🎯 POC Demo (93% compliant)
+│   │   └── shipping-tracker/        🔄 Testing Component
+│   ├── app.routes.ts                🛣️ Auto-updated routing
+│   └── app.component.ts             📱 Main application
+├── src/styles.scss                  🎨 UPS Brand CSS (protected)
+├── angular.json                     ⚙️ Build configuration
+└── package.json                     📦 Dependencies
+```
 
-╭─────────────────────────────────────────────────────────────────────────────╮
-│ 👨‍💻 DEVELOPER EXPERIENCE LAYER                                               │
-╰─────────────────────────────────────────────────────────────────────────────╯
+---
 
-Developer Workflow                Pipeline Response              Final Output
-      │                                  │                           │
-      ├─ Command Input ─────────────────▶│                           │
-      │  python generate_pipeline.py     │                           │
-      │  0eg3UmbqMcZ... 255:2415 track   │                           │
-      │                                  │                           │
-      │  ⏱️ Processing Time: 11-14 sec    ├─ Figma Fetch ───────────┐ │
-      │                                  ├─ AI Generation ─────────┤ │
-      │                                  ├─ TypeScript Auto-fix ───┤ │ 
-      │                                  ├─ CSS Validation ────────┤ │
-      │                                  ├─ Browser Preview ───────┤ │
-      │                                  │                        ─┘ │
-      │                                  │                           │
-      │◀─ 🌐 Chrome Opens Automatically ──┤                           │
-      │  http://localhost:4200/track     │                           │
-      │                                  │                           │
-      ├─ 👀 Review Component ─────────────┼─────────────────────────── ┤
-      │  • Validate design match         │                           │
-      │  • Test functionality            │                           │
-      │  • Check CSS compliance          │                           │
-      │                                  │                           │
-      ├─ ✅ Type 'A' to Accept ──────────▶│                           │
-      │                                  │                           │
-      │                                  ├─ Copy to Production ─────▶│
-      │                                  ├─ Update Routes ──────────▶│
-      │                                  ├─ Git Ready ──────────────▶│
-      │                                  │                           │
-      │◀─ 🎉 Production Ready ───────────┤                           │
-      │  "Component ready for commit"    │                     📦 Ready │
-      │                                  │                        │
-      ├─ 📝 Git Workflow ───────────────────────────────────────────▶│
-      │  git add . && git commit         │                Production │
-      │  git push origin main            │                 Deployed! │
-      ▼                                  ▼                           ▼
+### Developer Experience: Complete Workflow
+
+```bash
+# 1️⃣ Developer runs one command
+python pipeline/generate_pipeline.py 0eg3UmbqMcZtym1x8sGtZX 255:2415 track-page
+
+# 2️⃣ Pipeline executes (11-14 seconds)
+⏱️  Processing: Figma → AI → Validation → Preview
+
+# 3️⃣ Browser opens automatically
+🌐 http://localhost:4200/track-page
+
+# 4️⃣ Developer reviews & decides
+👀 Review component in live preview
+✅ Type 'A' to Accept (production ready)
+❌ Type 'R' to Reject (cleanup)
+🔄 Type 'G' to Regenerate (try again)
+
+# 5️⃣ Ready for Git
+📦 Component copied to production
+�️ Routes automatically updated
+✨ Ready for: git add . && git commit && git push
 ```
 
 ---
